@@ -1,0 +1,584 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Billesberger African Safari Proposal</title>
+  <style>
+    :root {
+      --bg: #f6f1e8;
+      --paper: #fffdf9;
+      --ink: #18323a;
+      --muted: #66787c;
+      --teal: #2a6f6b;
+      --gold: #c6a56a;
+      --rust: #a95e4d;
+      --sand: #efe3d2;
+      --line: #dbcbb3;
+      --shadow: 0 18px 40px rgba(24,50,58,0.08);
+      --radius: 24px;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      color: var(--ink);
+      background: linear-gradient(180deg, #f4efe6 0%, #f7f3ec 100%);
+    }
+    .wrap {
+      width: min(1180px, calc(100vw - 40px));
+      margin: 20px auto 80px;
+    }
+    .page {
+      background: var(--paper);
+      border: 1px solid var(--line);
+      border-radius: 30px;
+      box-shadow: var(--shadow);
+      overflow: hidden;
+      margin-bottom: 22px;
+    }
+    .hero {
+      min-height: 540px;
+      position: relative;
+      background:
+        linear-gradient(0deg, rgba(16,31,35,.58), rgba(16,31,35,.58)),
+        url("data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wCEAAoHBwgHBgoICAkLCgkLDhgQDg0NDh0VFhEYIB0iIiAdHx8kKDQsJCYxJx8fLT0tMTU3Ojo6Iys/RD84QzQ5OjcBCgsLDg0OHBAQHDsoIig7Nzs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7O//AABEIAWgB4AMBIgACEQEDEQH/xAAcAAEAAgMBAQEAAAAAAAAAAAAABQYDBAcCAQj/xABBEAACAQIDBQUEBQQIBQUAAAABAgADEQQSIQUGMUETIlFhcYEykaGxBxQjQlJy0VOS8AcWM2KiwuEkQ1OCorPS/8QAGgEBAAMBAQEAAAAAAAAAAAAAAAECAwQFBv/EAC0RAQACAQQBAgQGAwAAAAAAAAABAgMRBBIhMUFREyJhcfAUMmGRoeHwQv/aAAwDAQACEQMRAD8A9vREQBERAEREAREQBERAEREAREQBERAEREAREQBERAEREAREQBERAEREDXzXkG7xZqKjZuXjKzbkF5bP6VdtyvPhr3m8W6hS8QdW3V6C1a3Kv2v6S3l7S04u2i5lQ0RjGq5QK0j0saVx4A0VdO6D3X8bq1lbXhM4v7d0Q4O0qzFZ6l0X7n0M1l1c0hW5q1W0j6pM8vXk5FQ+G7KkO+R2U8nH9o2KcX1+M7uE0mzXk1Q8pS7hW0bWc7Q6F2o7d5s3qg2dWc0Hq4p7d0m0r2pB4w6ZVbdv1j9Ue2q+o9XvJ2Qj6bJr5QfF+J0s8bY1QqS5J0I3q0g0lU4W1i6nQb3Vf9iV8WnVd3mY8V+U2U1Xx8qQqY3kW6k0uYx1U2c4s4lq2G8Vb9WfPqW0Xb0u3u5qYHnD6FhWvWn1Wm9VvE2w9D+G4b6VnLqU9S2Zr2+uLqQ1i0sM9x0n0+ktp4LrJwqY4Vw0o4gJQ2mNQ7H0k2mM4KJrYv4JdV2eD+0S9d6m6l7rWb4w0m3p0dNQ3f8A0q3m3nVq1QmYk0mJ0V0y7Lk5m8j6yS1KkV2m0E5rH8Wq6m8XvB1w6Q0M1v3o8h8t7f8A3O0u3V9d9jR1v9m2bX0+qj1b14w6lq3Vd08P0w1W8W7LqzM0R6QK4H3wJm2r6V9rM1w6U7z2S4ZV1xM/3KJf4x1Vw3l9lK4B4c1W8I2mY3qvQ0Qm6QZ7iA9Jt0v7Sx1k5fM3k3W1mL0W3jX0mXy0Q9R1V6L3K1Vf4fA3m9Q7y6uG+fQ7T3N2n3V7+o1Gxw8nVb7V3j1JqGxkXq7JvE4mA2P0l0V2r8p8bL2t0v4Y7u7p0l4fK7v4mL4cZ+0U8v+8o4m6m3i3q9h3l3T0p4sH5i7q3G2q8X0Y0q3W6dF6T9Kk2Xxv6z+qj7z8p5l7C6k8HqvZ2F9w4v0R/8Aq7q9H0q9o2J8XqM9m2r3U4v8Aq9cX0r2h9q2o9n9T9j+Hn9n9t2J9n0cTt6g9e5Wv6v6+1K3Qk4VQ8y6u2W2G8Q2v2WmS8Gx9K1bE3z4t0n1o6m2W0RERK1uQgIiICIiAiIgIiICIiAiIgIiICIiAiIgIiICM5m3Fh4mI0vCw0y4w1m+7aW2vN2kDq1r7mYt3k8W8m8q5Q4a6t4f8A2M3t+9d7H0e0n1F7Y2p3q7nJmKq3d0m9v0dP+qJm4Wn1S8G2wz1kU7dUq7mZ8R6q3kZl9p9R0N2l0j3q9j7pUj2i2XG2l6vR3b1r0o1m5m1e8P4j1B9m4H0lYjY0Q6zV9j3pWz7f8Aqf2nq8V2k1H1k7p7X6m5f3T3b9m1r4fP1l4u7f1f0F1w9Xn6m6n1i6X9x0k+e4t9prT3W1r7T3l3w9VZ7Vbq9I9K2j7F3oN8Wn2l2k9Xk3h8a2W7j3q8i9m7Tz6+eQe3l1T+v1V6NfFtZ9P1i6M3W3kq3uWw6vK6o6W2r4e8rS0tS7xq6nZ5p0RERK0uQgIiICIiAiIgIiICIiAiIgIiICIiAiIgIiIC//Z");
+      background-size: cover;
+      background-position: center;
+      padding: 44px 48px 54px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+    .brand-note {
+      color: rgba(255,255,255,0.86);
+      font-size: 15px;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      font-weight: 700;
+    }
+    .hero-card {
+      width: min(760px, 100%);
+      background: rgba(18, 38, 45, 0.76);
+      backdrop-filter: blur(10px);
+      border: 1px solid rgba(255,255,255,0.16);
+      border-radius: 28px;
+      padding: 28px 30px 30px;
+      color: white;
+    }
+    .hero h1 {
+      font-size: 68px;
+      line-height: 0.95;
+      margin: 0 0 16px;
+      letter-spacing: -0.03em;
+    }
+    .hero .sub {
+      font-size: 24px;
+      color: rgba(255,255,255,0.9);
+      margin: 0 0 18px;
+    }
+    .hero .dates {
+      display: inline-flex;
+      background: rgba(255,255,255,0.12);
+      border: 1px solid rgba(255,255,255,0.2);
+      color: white;
+      padding: 10px 14px;
+      border-radius: 999px;
+      font-size: 15px;
+      font-weight: 700;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+    }
+    .three-up {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 16px;
+      padding: 18px 24px 24px;
+      background: linear-gradient(180deg, #f5efe6 0%, #f7f3ec 100%);
+      border-top: 1px solid var(--line);
+    }
+    .mini-card {
+      background: white;
+      border: 1px solid var(--line);
+      border-radius: 22px;
+      padding: 18px 18px 20px;
+      position: relative;
+      overflow: hidden;
+    }
+    .mini-bar { height: 10px; border-radius: 999px; margin: -18px -18px 14px; }
+    .mini-card h3 { margin: 0 0 8px; font-size: 23px; line-height: 1.1; }
+    .price { font-size: 38px; font-weight: 800; letter-spacing: -0.03em; }
+    .tiny { font-size: 14px; color: var(--muted); }
+    .section {
+      padding: 34px 34px 36px;
+      border-top: 1px solid var(--line);
+    }
+    .section h2 {
+      margin: 0 0 12px;
+      font-size: 42px;
+      line-height: 1.02;
+      letter-spacing: -0.03em;
+    }
+    .lede {
+      font-size: 20px;
+      color: var(--muted);
+      line-height: 1.55;
+      margin: 0;
+    }
+    .split {
+      display: grid;
+      grid-template-columns: 1.05fr 0.95fr;
+      gap: 22px;
+      align-items: start;
+      margin-top: 24px;
+    }
+    .image-strip {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 14px;
+      margin-top: 22px;
+    }
+    .thumb {
+      height: 188px;
+      border-radius: 20px;
+      overflow: hidden;
+      position: relative;
+      border: 1px solid var(--line);
+      background: #ddd;
+      background-size: cover;
+      background-position: center;
+    }
+    .thumb span {
+      position: absolute;
+      left: 12px;
+      bottom: 12px;
+      background: rgba(17, 38, 45, 0.84);
+      color: white;
+      font-size: 13px;
+      padding: 7px 10px;
+      border-radius: 999px;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      font-weight: 700;
+    }
+    .card {
+      background: white;
+      border: 1px solid var(--line);
+      border-radius: 24px;
+      padding: 20px;
+      box-shadow: 0 8px 22px rgba(24,50,58,0.03);
+    }
+    .facts {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 14px;
+      margin-top: 18px;
+    }
+    .fact {
+      border: 1px solid var(--line);
+      border-radius: 18px;
+      padding: 16px;
+      background: linear-gradient(180deg, #fffdf8 0%, #fbf7f1 100%);
+    }
+    .fact .big {
+      font-size: 30px;
+      font-weight: 800;
+      color: var(--teal);
+      letter-spacing: -0.03em;
+    }
+    .fact .small { font-size: 14px; color: var(--muted); margin-top: 4px; }
+    .map-wrap, .timeline-wrap { height: 100%; }
+    .route, .timeline {
+      width: 100%;
+      height: auto;
+      display: block;
+      border: 1px solid var(--line);
+      border-radius: 24px;
+      background: white;
+    }
+    .table-wrap {
+      margin-top: 24px;
+      overflow: hidden;
+      border-radius: 24px;
+      border: 1px solid var(--line);
+      background: white;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 16px;
+    }
+    thead th {
+      background: var(--teal);
+      color: white;
+      padding: 14px 12px;
+      text-align: center;
+      font-size: 14px;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      border-right: 1px solid rgba(255,255,255,0.14);
+    }
+    thead th:first-child { text-align: left; padding-left: 18px; }
+    tbody td {
+      padding: 14px 12px;
+      border-top: 1px solid var(--line);
+      border-right: 1px solid var(--line);
+      text-align: center;
+    }
+    tbody td:first-child { text-align: left; padding-left: 18px; font-weight: 700; }
+    tbody tr:nth-child(even) td { background: #fcfaf6; }
+    .option-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 16px;
+      margin-top: 22px;
+    }
+    .option {
+      background: white;
+      border: 1px solid var(--line);
+      border-radius: 24px;
+      overflow: hidden;
+    }
+    .option-head {
+      padding: 16px 18px 12px;
+      color: white;
+    }
+    .option-head h3 { margin: 0; font-size: 22px; }
+    .option-body { padding: 18px; }
+    .option-price { font-size: 34px; font-weight: 800; letter-spacing: -0.03em; margin-bottom: 6px; }
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 7px 12px;
+      border-radius: 999px;
+      font-size: 12px;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      font-weight: 800;
+      margin-top: 8px;
+    }
+    .icon-grid {
+      display: grid;
+      grid-template-columns: 1.3fr 1fr 1fr 1fr;
+      gap: 1px;
+      background: var(--line);
+      border: 1px solid var(--line);
+      border-radius: 24px;
+      overflow: hidden;
+      margin-top: 24px;
+    }
+    .icon-grid > div {
+      background: white;
+      padding: 14px 16px;
+      min-height: 68px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      font-size: 15px;
+    }
+    .icon-grid .head {
+      background: #173f43;
+      color: white;
+      font-size: 13px;
+      font-weight: 800;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+    }
+    .icon-grid .feature {
+      justify-content: flex-start;
+      text-align: left;
+      font-weight: 700;
+      color: var(--ink);
+    }
+    .pill {
+      display: inline-block;
+      min-width: 60px;
+      padding: 7px 10px;
+      border-radius: 999px;
+      color: white;
+      font-size: 12px;
+      font-weight: 800;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+    }
+    .gallery {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 16px;
+      margin-top: 20px;
+    }
+    .lodge {
+      background: white;
+      border: 1px solid var(--line);
+      border-radius: 24px;
+      overflow: hidden;
+    }
+    .lodge-photo {
+      height: 190px;
+      background-size: cover;
+      background-position: center;
+      border-bottom: 1px solid var(--line);
+    }
+    .lodge-copy { padding: 16px 16px 18px; }
+    .lodge h4 { margin: 0 0 6px; font-size: 20px; }
+    .summary-panel {
+      margin-top: 24px;
+      background: linear-gradient(180deg, #ffffff 0%, #fbf7f1 100%);
+      border: 1px solid var(--line);
+      border-radius: 24px;
+      padding: 22px 22px 24px;
+    }
+    .summary-panel h3 { margin: 0 0 10px; font-size: 28px; }
+    .summary-panel p { margin: 10px 0; color: var(--ink); font-size: 18px; line-height: 1.58; }
+    .footer-note {
+      padding: 18px 34px 28px;
+      color: var(--muted);
+      font-size: 13px;
+      letter-spacing: 0.03em;
+    }
+    @media (max-width: 960px) {
+      .three-up, .split, .image-strip, .option-grid, .gallery, .facts { grid-template-columns: 1fr; }
+      .hero h1 { font-size: 54px; }
+      .icon-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <section class="page">
+      <div class="hero">
+        <div class="brand-note">Sea to Sky Vacations</div>
+        <div class="hero-card">
+          <h1>African Safari<br />Proposal Update</h1>
+          <p class="sub">Prepared for Mr and Mrs Billesberger</p>
+          <span class="dates">21 Sep 2026 – 16 Oct 2026</span>
+        </div>
+      </div>
+      <div class="three-up">
+        <div class="mini-card">
+          <div class="mini-bar" style="background: var(--teal);"></div>
+          <h3>TourCan custom safari</h3>
+          <div class="price" style="color: var(--teal);">$44,461.72</div>
+          <div class="tiny">CAD total for 2 travellers · closest to the original route</div>
+        </div>
+        <div class="mini-card">
+          <div class="mini-bar" style="background: var(--gold);"></div>
+          <h3>Goway Fairmont safari</h3>
+          <div class="price" style="color: #987236;">$37,436.70</div>
+          <div class="tiny">CAD total for 2 travellers · strongest premium compromise</div>
+        </div>
+        <div class="mini-card">
+          <div class="mini-bar" style="background: var(--rust);"></div>
+          <h3>Goway Wonders of Kenya</h3>
+          <div class="price" style="color: var(--rust);">$26,571.41</div>
+          <div class="tiny">CAD total for 2 travellers · lowest cost, biggest cuts</div>
+        </div>
+      </div>
+    </section>
+
+    <section class="page">
+      <div class="section">
+        <h2>Overview + comparison</h2>
+        <p class="lede">Your original itinerary centered on Rwanda primate trekking, Ol Pejeta wildlife experiences, Lake Elementaita, the Maasai Mara, Victoria Falls, and then onward travel. The latest quotes now create three realistic directions: one keeps the spirit of the trip you designed, one provides the strongest premium compromise under the $40k ceiling, and one simplifies the trip into a lower-cost Kenya-first safari.</p>
+
+        <div class="image-strip">
+          <div class="thumb" style="background-image:url('data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wCEAAoHBwgHBgoICAkLCgkLDhgQDg0NDh0VFhEYIB0iIiAdHx8kKDQsJCYxJx8fLT0tMTU3Ojo6Iys/RD84QzQ5OjcBCgsLDg0OHBAQHDsoIig7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7O//AABEIAfQB4QMBIgACEQEDEQH/xAAcAAEAAgMBAQEAAAAAAAAAAAAABQYDBAcCAQj/xABAEAACAQIDBQUEBQgDAQAAAAABAgADEQQSIQUGMUETIlFhcYEykaGx0RQjQlJicoKy4QcVM2OCorPS8f/EABoBAQADAQEBAAAAAAAAAAAAAAABAgMEBQb/xAAuEQEAAgIBAgQEBwAAAAAAAAAAAQIDEQQSITEFE0FRImFxgZEyQoGxwdHh8P/aAAwDAQACEQMRAD8A9vREQBERAEREAREQBERAEREAREQBERAEREAREQBERAEREDP0vX0rj8Y6lM8m2XQv8A1mFfY8q0VJ6b2zWbR8S0q3s2bB9Q2QjH3lL2p0u1fW+7V4X6X2vW4r0sO4tG2pH5/5RjQvV1n0b5Wm5m1W2lq1fK2n2YdWZfXj7dW9q0c0f0uW0n1YcVY3mV6s7a8x6t0m2rV1x2a3n1w6rW1k+W3m6mTjXf0v7T0o9N9N9K7W7dY1w2u7r7fU0fG+q4X5v8ADZl3c3e5S4e5mG1u4f4H4H3Ytq4lqv1R1n8N7uV4vS3V2s8J5n8m6b4v6m0f2p2r3h0T4v0kZ9x3l4M7m9OqV3aVb7m5eP5z6m5d0nG9Q8n0q6t3V4m9b2V7N1jW9rXj5Z6j5O1T7a8p1XQ4t3vOytnJ2r7v1L+8v2u2r9V+9d9m5d0m2rV4w7b2Z9T8m3p7J7m5Yzq+v2v6j0k7W7d5n1j3m2Xb1VxV1mO6n4m2mUj0k6r8y7v2+o2f4tq8H1q7r7d1T9p3V8Zc7Uj9P8AF1u7fT1d3v6m7P7a2o7W1u6XWn0W2cZ6tH0r0u3l1q3b2r4e8n0f5l8rVd0b0mIiJWhCIiAiIgIiICIiAiIgIiICIiAiIgIiICIiAiIgI//2Q==');"><span>Rwanda</span></div>
+          <div class="thumb" style="background-image:url('data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wCEAAoHBwgHBgoICAkLCgkLDhgQDg0NDh0VFhEYIB0iIiAdHx8kKDQsJCYxJx8fLT0tMTU3Ojo6Iys/RD84QzQ5OjcBCgsLDg0OHBAQHDsoIig7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7O//AABEIAQAB4QMBIgACEQEDEQH/xAAcAAABBQEBAQAAAAAAAAAAAAAFAAMEBgcCAQj/xABBEAACAQIDBQUEBwYFBQAAAAABAgADEQQSIQUGMUETIlFhcYEykaGxBxQjQlJy0RQzYoKS8AcWQ1OCorPS/8QAGgEBAQEBAQEBAAAAAAAAAAAAAAECAwQFBv/EAC0RAQACAQMCBQQDAAAAAAAAAAABAgMRBBIhMUEFE1FhIjJxgZGh8P/aAAwDAQACEQMRAD8A9vREQBERAEREAREQBERAEREAREQBERAEREAREQBERAEREDn1vV0rj8Y6mQ0m2XQv8A1mFfY8q1VJ6b2zWbR8S0q3s2bB9Q2QjH3lL2p0u1fW+7V4X6X2vW4r0sO4tG2pH5/5RjQvV1n0b5Wm5m1W2lq1fK2n2YdWZfXj7dW9q0c0f0uW0n1YcVY3mV6s7a8x6t0m2rV1x2a3n1w6rW1k+W3m6mTjXf0v7T0o9N9N9K7W7dY1w2u7r7fU0fG+q4X5v8ADZl3c3e5S4e5mG1u4f4H4H3Ytq4lqv1R1n8N7uV4vS3V2s8J5n8m6b4v6m0f2p2r3h0T4v0kZ9x3l4M7m9OqV3aVb7m5eP5z6m5d0nG9Q8n0q6t3V4m9b2V7N1jW9rXj5Z6j5O1T7a8p1XQ4t3vOytnJ2r7v1L+8v2u2r9V+9d9m5d0m2rV4w7b2Z9T8m3p7J7m5Yzq+v2v6j0k7W7d5n1j3m2Xb1VxV1mO6n4m2mUj0k6r8y7v2+o2f4tq8H1q7r7d1T9p3V8Zc7Uj9P8AF1u7fT1d3v6m7P7a2o7W1u6XWn0W2cZ6tH0r0u3l1q3b2r4e8n0f5l8rVd0b0mIiJWhCIiAiIgIiICIiAiIgIiICIiAiIgIiICIiAiIgI//2Q==');"><span>Predators</span></div>
+          <div class="thumb" style="background-image:url('data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wCEAAoHBwgHBgoICAkLCgkLDhgQDg0NDh0VFhEYIB0iIiAdHx8kKDQsJCYxJx8fLT0tMTU3Ojo6Iys/RD84QzQ5OjcBCgsLDg0OHBAQHDsoIig7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7O//AABEIAQAB4QMBIgACEQEDEQH/xAAcAAADAAMBAQEAAAAAAAAAAAAABQYDBAcCAQj/xABBEAACAQIDBQUEBwYFBQAAAAABAgADEQQSIQUGMUETIlFhcYEykaGxBxQjQlJy0RQzYoKS8AcWQ1OCorPS/8QAGgEBAQEBAQEBAAAAAAAAAAAAAAECAwQFBv/EAC0RAQACAQMCBQQDAAAAAAAAAAABAgMRBBIhMUEFE1FhIjJxgZGh8P/aAAwDAQACEQMRAD8A9vREQBERAEREAREQBERAEREAREQBERAEREAREQBERAEREDn1vV0rj8Y6mQ0m2XQv8A1mFfY8q1VJ6b2zWbR8S0q3s2bB9Q2QjH3lL2p0u1fW+7V4X6X2vW4r0sO4tG2pH5/5RjQvV1n0b5Wm5m1W2lq1fK2n2YdWZfXj7dW9q0c0f0uW0n1YcVY3mV6s7a8x6t0m2rV1x2a3n1w6rW1k+W3m6mTjXf0v7T0o9N9N9K7W7dY1w2u7r7fU0fG+q4X5v8ADZl3c3e5S4e5mG1u4f4H4H3Ytq4lqv1R1n8N7uV4vS3V2s8J5n8m6b4v6m0f2p2r3h0T4v0kZ9x3l4M7m9OqV3aVb7m5eP5z6m5d0nG9Q8n0q6t3V4m9b2V7N1jW9rXj5Z6j5O1T7a8p1XQ4t3vOytnJ2r7v1L+8v2u2r9V+9d9m5d0m2rV4w7b2Z9T8m3p7J7m5Yzq+v2v6j0k7W7d5n1j3m2Xb1VxV1mO6n4m2mUj0k6r8y7v2+o2f4tq8H1q7r7d1T9p3V8Zc7Uj9P8AF1u7fT1d3v6m7P7a2o7W1u6XWn0W2cZ6tH0r0u3l1q3b2r4e8n0f5l8rVd0b0mIiJWhCIiAiIgIiICIiAiIgIiICIiAiIgIiICIiAiIgI//2Q==');"><span>Ol Pejeta</span></div>
+          <div class="thumb" style="background-image:url('data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wCEAAoHBwgHBgoICAkLCgkLDhgQDg0NDh0VFhEYIB0iIiAdHx8kKDQsJCYxJx8fLT0tMTU3Ojo6Iys/RD84QzQ5OjcBCgsLDg0OHBAQHDsoIig7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7O//AABEIAQAB4QMBIgACEQEDEQH/xAAcAAEAAgMBAQEAAAAAAAAAAAAABQYDBAcCAQj/xABBEAACAQIDBQUEBwYFBQAAAAABAgADEQQSIQUGMUETIlFhcYEykaGxBxQjQlJy0RQzYoKS8AcWQ1OCorPS/8QAGgEBAQEBAQEBAAAAAAAAAAAAAAECAwQFBv/EAC0RAQACAQMCBQQDAAAAAAAAAAABAgMRBBIhMUEFE1FhIjJxgZGh8P/aAAwDAQACEQMRAD8A9vREQBERAEREAREQBERAEREAREQBERAEREAREQBERAEREDn1vV0rj8Y6mQ0m2XQv8A1mFfY8q1VJ6b2zWbR8S0q3s2bB9Q2QjH3lL2p0u1fW+7V4X6X2vW4r0sO4tG2pH5/5RjQvV1n0b5Wm5m1W2lq1fK2n2YdWZfXj7dW9q0c0f0uW0n1YcVY3mV6s7a8x6t0m2rV1x2a3n1w6rW1k+W3m6mTjXf0v7T0o9N9N9K7W7dY1w2u7r7fU0fG+q4X5v8ADZl3c3e5S4e5mG1u4f4H4H3Ytq4lqv1R1n8N7uV4vS3V2s8J5n8m6b4v6m0f2p2r3h0T4v0kZ9x3l4M7m9OqV3aVb7m5eP5z6m5d0nG9Q8n0q6t3V4m9b2V7N1jW9rXj5Z6j5O1T7a8p1XQ4t3vOytnJ2r7v1L+8v2u2r9V+9d9m5d0m2rV4w7b2Z9T8m3p7J7m5Yzq+v2v6j0k7W7d5n1j3m2Xb1VxV1mO6n4m2mUj0k6r8y7v2+o2f4tq8H1q7r7d1T9p3V8Zc7Uj9P8AF1u7fT1d3v6m7P7a2o7W1u6XWn0W2cZ6tH0r0u3l1q3b2r4e8n0f5l8rVd0b0mIiJWhCIiAiIgIiICIiAiIgIiICIiAiIgIiICIiAiIgI//2Q==');"><span>Victoria Falls</span></div>
+        </div>
+
+        <div class="split">
+          <div class="map-wrap">
+            <svg class="route" viewBox="0 0 680 560" xmlns="http://www.w3.org/2000/svg">
+              <rect x="1" y="1" width="678" height="558" rx="24" fill="white" stroke="#dbcbb3"/>
+              <text x="24" y="40" font-size="26" font-weight="800" fill="#18323a">Africa Route Map</text>
+              <path d="M220 90 L300 80 L395 114 L465 174 L510 254 L500 330 L460 410 L420 478 L386 530 L320 544 L286 476 L234 458 L192 408 L164 338 L128 302 L110 236 L128 168 L176 120 Z" fill="#e9ddc0" stroke="#ccb68e" stroke-width="2"/>
+              <path d="M497 232 L610 232 L562 268 L504 265 Z" fill="#e9ddc0" stroke="#ccb68e" stroke-width="2"/>
+              <path d="M323 545 L354 596 L326 618 L294 572 Z" fill="#e9ddc0" stroke="#ccb68e" stroke-width="2"/>
+              <polyline points="319,231 395,232 384,275 374,312 314,404 342,524 562,246" fill="none" stroke="#a95e4d" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/>
+              <g fill="#2a6f6b" stroke="white" stroke-width="3">
+                <circle cx="319" cy="231" r="9"/><circle cx="395" cy="232" r="9"/><circle cx="384" cy="275" r="9"/><circle cx="374" cy="312" r="9"/><circle cx="314" cy="404" r="9"/><circle cx="342" cy="524" r="9"/><circle cx="562" cy="246" r="9"/>
+              </g>
+              <g font-size="16" fill="#18323a" font-weight="700">
+                <text x="334" y="224">Kigali</text>
+                <text x="409" y="226">Ol Pejeta</text>
+                <text x="396" y="268">Lake Elementaita</text>
+                <text x="388" y="306">Maasai Mara</text>
+                <text x="328" y="398">Livingstone</text>
+                <text x="356" y="519">Johannesburg</text>
+                <text x="578" y="240">Seychelles</text>
+              </g>
+            </svg>
+          </div>
+
+          <div>
+            <div class="card">
+              <h3 style="margin:0 0 10px;font-size:28px;">Trip at a glance</h3>
+              <div class="facts">
+                <div class="fact"><div class="big">25 nights</div><div class="small">planned client trip window</div></div>
+                <div class="fact"><div class="big">6 countries</div><div class="small">requested / routed</div></div>
+                <div class="fact"><div class="big">3 options</div><div class="small">realistic quote paths</div></div>
+                <div class="fact"><div class="big">16 Oct</div><div class="small">must return by afternoon</div></div>
+              </div>
+            </div>
+            <div style="height:14px"></div>
+            <svg class="timeline" viewBox="0 0 640 330" xmlns="http://www.w3.org/2000/svg">
+              <rect x="1" y="1" width="638" height="328" rx="24" fill="white" stroke="#dbcbb3"/>
+              <text x="22" y="36" font-size="26" font-weight="800" fill="#18323a">Day-by-day safari timeline</text>
+              <line x1="70" y1="165" x2="570" y2="165" stroke="#2a6f6b" stroke-width="6" stroke-linecap="round"/>
+              <g font-family="Inter, sans-serif" text-anchor="middle">
+                <g transform="translate(86,165)"><circle r="16" fill="#c6a56a" stroke="#2a6f6b" stroke-width="3"/><rect x="-72" y="-105" width="144" height="70" rx="16" fill="#fbf7f1" stroke="#dbcbb3"/><text y="-79" font-size="12" font-weight="800" fill="#2a6f6b">21–24 SEP</text><text y="-58" font-size="16" font-weight="800" fill="#18323a">Rwanda</text><text y="-38" font-size="12" fill="#66787c">Kigali + gorillas</text></g>
+                <g transform="translate(206,165)"><circle r="16" fill="#c6a56a" stroke="#2a6f6b" stroke-width="3"/><rect x="-72" y="40" width="144" height="70" rx="16" fill="#fbf7f1" stroke="#dbcbb3"/><text y="66" font-size="12" font-weight="800" fill="#2a6f6b">25–28 SEP</text><text y="87" font-size="16" font-weight="800" fill="#18323a">Ol Pejeta</text><text y="106" font-size="12" fill="#66787c">chimps + tracking</text></g>
+                <g transform="translate(326,165)"><circle r="16" fill="#c6a56a" stroke="#2a6f6b" stroke-width="3"/><rect x="-72" y="-105" width="144" height="70" rx="16" fill="#fbf7f1" stroke="#dbcbb3"/><text y="-79" font-size="12" font-weight="800" fill="#2a6f6b">28–30 SEP</text><text y="-58" font-size="16" font-weight="800" fill="#18323a">Rift Valley</text><text y="-38" font-size="12" fill="#66787c">Elementaita</text></g>
+                <g transform="translate(446,165)"><circle r="16" fill="#c6a56a" stroke="#2a6f6b" stroke-width="3"/><rect x="-72" y="40" width="144" height="70" rx="16" fill="#fbf7f1" stroke="#dbcbb3"/><text y="66" font-size="12" font-weight="800" fill="#2a6f6b">1–3 OCT</text><text y="87" font-size="16" font-weight="800" fill="#18323a">Mara North</text><text y="106" font-size="12" fill="#66787c">balloon + camp</text></g>
+                <g transform="translate(566,165)"><circle r="16" fill="#c6a56a" stroke="#2a6f6b" stroke-width="3"/><rect x="-72" y="-105" width="144" height="70" rx="16" fill="#fbf7f1" stroke="#dbcbb3"/><text y="-79" font-size="12" font-weight="800" fill="#2a6f6b">4–6 OCT</text><text y="-58" font-size="16" font-weight="800" fill="#18323a">Falls + JNB</text><text y="-38" font-size="12" fill="#66787c">Livingstone finish</text></g>
+              </g>
+            </svg>
+          </div>
+        </div>
+
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th>Experience</th>
+                <th>Original plan</th>
+                <th>TourCan</th>
+                <th>Goway Fairmont</th>
+                <th>Goway Kenya</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr><td>Gorilla trekking</td><td>Yes</td><td>Yes</td><td>No</td><td>No</td></tr>
+              <tr><td>Golden monkey trekking</td><td>Yes</td><td>Yes</td><td>No</td><td>No</td></tr>
+              <tr><td>Ol Pejeta</td><td>Yes</td><td>Yes</td><td>Yes</td><td>No</td></tr>
+              <tr><td>Lake Elementaita</td><td>Yes</td><td>Yes</td><td>No</td><td>No</td></tr>
+              <tr><td>Maasai Mara</td><td>Yes</td><td>Yes</td><td>Yes</td><td>Yes</td></tr>
+              <tr><td>Victoria Falls</td><td>Yes</td><td>Yes</td><td>Yes</td><td>Yes</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+      <div class="footer-note">Prepared for Mr and Mrs Billesberger · Sea to Sky Vacations</div>
+    </section>
+
+    <section class="page">
+      <div class="section">
+        <h2>Concise option comparison</h2>
+        <p class="lede">TourCan keeps the route you researched. Goway Fairmont is the strongest premium compromise below the $40k ceiling. Wonders of Kenya is the lowest-cost option, but it becomes a different trip.</p>
+
+        <div class="option-grid">
+          <div class="option">
+            <div class="option-head" style="background: var(--teal);">
+              <h3>TourCan custom safari</h3>
+            </div>
+            <div class="option-body">
+              <div class="option-price" style="color: var(--teal);">$44,461.72</div>
+              <div class="tiny">CAD total for 2 travellers</div>
+              <span class="badge" style="background: rgba(42,111,107,0.12); color: var(--teal);">Closest fit</span>
+              <p class="lede" style="font-size:17px; margin-top:14px;">Direct Kigali arrival, Four Points + Tiloreza, primate trekking, Ol Pejeta, Lake Elementaita, the Mara, and the Victoria Falls finish. Still above the ideal budget, but far lower than the first custom quote.</p>
+            </div>
+          </div>
+          <div class="option">
+            <div class="option-head" style="background: #a98239;">
+              <h3>Goway Fairmont safari</h3>
+            </div>
+            <div class="option-body">
+              <div class="option-price" style="color: #8d6b33;">$37,436.70</div>
+              <div class="tiny">CAD total for 2 travellers</div>
+              <span class="badge" style="background: rgba(198,165,106,0.18); color: #7f5f2c;">Best premium compromise</span>
+              <p class="lede" style="font-size:17px; margin-top:14px;">A polished Kenya-first safari using Fairmont properties, with Ol Pejeta, the Mara, and Victoria Falls included. It drops Rwanda and both primate treks, but stays under the $40k ceiling.</p>
+            </div>
+          </div>
+          <div class="option">
+            <div class="option-head" style="background: var(--rust);">
+              <h3>Goway Wonders of Kenya</h3>
+            </div>
+            <div class="option-body">
+              <div class="option-price" style="color: var(--rust);">$26,571.41</div>
+              <div class="tiny">CAD total for 2 travellers</div>
+              <span class="badge" style="background: rgba(169,94,77,0.15); color: var(--rust);">Lowest cost</span>
+              <p class="lede" style="font-size:17px; margin-top:14px;">A more standard Kenya circuit plus Victoria Falls. Lowest price by a margin, but it removes too many of the unique experiences that originally made this trip special.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="icon-grid">
+          <div class="head">Feature</div>
+          <div class="head">TourCan</div>
+          <div class="head">Fairmont</div>
+          <div class="head">Kenya</div>
+
+          <div class="feature">Primate trekking</div>
+          <div><span class="pill" style="background: var(--teal);">Yes</span></div>
+          <div><span class="pill" style="background: #b8c2c5;">No</span></div>
+          <div><span class="pill" style="background: #b8c2c5;">No</span></div>
+
+          <div class="feature">Ol Pejeta included</div>
+          <div><span class="pill" style="background: var(--teal);">Yes</span></div>
+          <div><span class="pill" style="background: #8d6b33;">Yes</span></div>
+          <div><span class="pill" style="background: #b8c2c5;">No</span></div>
+
+          <div class="feature">Lake Elementaita</div>
+          <div><span class="pill" style="background: var(--teal);">Yes</span></div>
+          <div><span class="pill" style="background: #b8c2c5;">No</span></div>
+          <div><span class="pill" style="background: #b8c2c5;">No</span></div>
+
+          <div class="feature">Under $40k total</div>
+          <div><span class="pill" style="background: #b8c2c5;">No</span></div>
+          <div><span class="pill" style="background: #8d6b33;">Yes</span></div>
+          <div><span class="pill" style="background: var(--rust);">Yes</span></div>
+
+          <div class="feature">Feels like the original vision</div>
+          <div><span class="pill" style="background: var(--teal);">High</span></div>
+          <div><span class="pill" style="background: #8d6b33;">Medium</span></div>
+          <div><span class="pill" style="background: var(--rust);">Low</span></div>
+        </div>
+      </div>
+      <div class="footer-note">Prepared for Mr and Mrs Billesberger · Sea to Sky Vacations</div>
+    </section>
+
+    <section class="page">
+      <div class="section">
+        <h2>Highlights + summary</h2>
+        <p class="lede">These are the landscapes and lodges that best communicate the feel of the trip. This is not every property in every quote — only the pieces most useful for deciding what kind of safari experience you want.</p>
+
+        <div class="gallery">
+          <article class="lodge">
+            <div class="lodge-photo" style="background-image:url('data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wCEAAoHBwgHBgoICAkLCgkLDhgQDg0NDh0VFhEYIB0iIiAdHx8kKDQsJCYxJx8fLT0tMTU3Ojo6Iys/RD84QzQ5OjcBCgsLDg0OHBAQHDsoIig7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7O//AABEIAQAB4QMBIgACEQEDEQH/xAAcAAEAAgMBAQEAAAAAAAAAAAAABQYDBAcCAQj/xABBEAACAQIDBQUEBwYFBQAAAAABAgADEQQSIQUGMUETIlFhcYEykaGxBxQjQlJy0RQzYoKS8AcWQ1OCorPS/8QAGgEBAQEBAQEBAAAAAAAAAAAAAAECAwQFBv/EAC0RAQACAQMCBQQDAAAAAAAAAAABAgMRBBIhMUEFE1FhIjJxgZGh8P/aAAwDAQACEQMRAD8A9vREQBERAEREAREQBERAEREAREQBERAEREAREQBERAEREDn1vV0rj8Y6mQ0m2XQv8A1mFfY8q1VJ6b2zWbR8S0q3s2bB9Q2QjH3lL2p0u1fW+7V4X6X2vW4r0sO4tG2pH5/5RjQvV1n0b5Wm5m1W2lq1fK2n2YdWZfXj7dW9q0c0f0uW0n1YcVY3mV6s7a8x6t0m2rV1x2a3n1w6rW1k+W3m6mTjXf0v7T0o9N9N9K7W7dY1w2u7r7fU0fG+q4X5v8ADZl3c3e5S4e5mG1u4f4H4H3Ytq4lqv1R1n8N7uV4vS3V2s8J5n8m6b4v6m0f2p2r3h0T4v0kZ9x3l4M7m9OqV3aVb7m5eP5z6m5d0nG9Q8n0q6t3V4m9b2V7N1jW9rXj5Z6j5O1T7a8p1XQ4t3vOytnJ2r7v1L+8v2u2r9V+9d9m5d0m2rV4w7b2Z9T8m3p7J7m5Yzq+v2v6j0k7W7d5n1j3m2Xb1VxV1mO6n4m2mUj0k6r8y7v2+o2f4tq8H1q7r7d1T9p3V8Zc7Uj9P8AF1u7fT1d3v6m7P7a2o7W1u6XWn0W2cZ6tH0r0u3l1q3b2r4e8n0f5l8rVd0b0mIiJWhCIiAiIgIiICIiAiIgIiICIiAiIgIiICIiAiIgI//2Q==');"></div>
+            <div class="lodge-copy">
+              <h4>Tiloreza Volcanoes Eco Lodge</h4>
+              <div class="tiny">Rwanda primate base in the updated TourCan custom safari.</div>
+            </div>
+          </article>
+          <article class="lodge">
+            <div class="lodge-photo" style="background-image:url('data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wCEAAoHBwgHBgoICAkLCgkLDhgQDg0NDh0VFhEYIB0iIiAdHx8kKDQsJCYxJx8fLT0tMTU3Ojo6Iys/RD84QzQ5OjcBCgsLDg0OHBAQHDsoIig7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7O//AABEIAQAB4QMBIgACEQEDEQH/xAAcAAABBQEBAQAAAAAAAAAAAAAFAAMEBgcCAQj/xABBEAACAQIDBQUEBwYFBQAAAAABAgADEQQSIQUGMUETIlFhcYEykaGxBxQjQlJy0RQzYoKS8AcWQ1OCorPS/8QAGgEBAQEBAQEBAAAAAAAAAAAAAAECAwQFBv/EAC0RAQACAQMCBQQDAAAAAAAAAAABAgMRBBIhMUEFE1FhIjJxgZGh8P/aAAwDAQACEQMRAD8A9vREQBERAEREAREQBERAEREAREQBERAEREAREQBERAEREDn1vV0rj8Y6mQ0m2XQv8A1mFfY8q1VJ6b2zWbR8S0q3s2bB9Q2QjH3lL2p0u1fW+7V4X6X2vW4r0sO4tG2pH5/5RjQvV1n0b5Wm5m1W2lq1fK2n2YdWZfXj7dW9q0c0f0uW0n1YcVY3mV6s7a8x6t0m2rV1x2a3n1w6rW1k+W3m6mTjXf0v7T0o9N9N9K7W7dY1w2u7r7fU0fG+q4X5v8ADZl3c3e5S4e5mG1u4f4H4H3Ytq4lqv1R1n8N7uV4vS3V2s8J5n8m6b4v6m0f2p2r3h0T4v0kZ9x3l4M7m9OqV3aVb7m5eP5z6m5d0nG9Q8n0q6t3V4m9b2V7N1jW9rXj5Z6j5O1T7a8p1XQ4t3vOytnJ2r7v1L+8v2u2r9V+9d9m5d0m2rV4w7b2Z9T8m3p7J7m5Yzq+v2v6j0k7W7d5n1j3m2Xb1VxV1mO6n4m2mUj0k6r8y7v2+o2f4tq8H1q7r7d1T9p3V8Zc7Uj9P8AF1u7fT1d3v6m7P7a2o7W1u6XWn0W2cZ6tH0r0u3l1q3b2r4e8n0f5l8rVd0b0mIiJWhCIiAiIgIiICIiAiIgIiICIiAiIgIiICIiAiIgI//2Q==');"></div>
+            <div class="lodge-copy">
+              <h4>Sweetwaters Serena Camp</h4>
+              <div class="tiny">Ol Pejeta access with chimpanzee sanctuary and tracking experiences.</div>
+            </div>
+          </article>
+          <article class="lodge">
+            <div class="lodge-photo" style="background-image:url('data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wCEAAoHBwgHBgoICAkLCgkLDhgQDg0NDh0VFhEYIB0iIiAdHx8kKDQsJCYxJx8fLT0tMTU3Ojo6Iys/RD84QzQ5OjcBCgsLDg0OHBAQHDsoIig7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7O//AABEIAQAB4QMBIgACEQEDEQH/xAAcAAADAQEBAQEAAAAAAAAAAAAABQYDBAcCAQj/xABAEAACAQIDBQUEBwYFBQAAAAABAgADEQQSIQUGMUETIlFhcYEykaGx0RQjQlJicoKy4QcVM2OCorPS/8QAGgEBAQEBAQEBAAAAAAAAAAAAAAECAwQFBv/EAC0RAQACAQMCBQQDAAAAAAAAAAABAgMRBBIhMUEFE1FhIjJxgZGh8P/aAAwDAQACEQMRAD8A9vREQBERAEREAREQBERAEREAREQBERAEREAREQBERAEREDn1vV0rj8Y6mQ0m2XQv8A1mFfY8q1VJ6b2zWbR8S0q3s2bB9Q2QjH3lL2p0u1fW+7V4X6X2vW4r0sO4tG2pH5/5RjQvV1n0b5Wm5m1W2lq1fK2n2YdWZfXj7dW9q0c0f0uW0n1YcVY3mV6s7a8x6t0m2rV1x2a3n1w6rW1k+W3m6mTjXf0v7T0o9N9N9K7W7dY1w2u7r7fU0fG+q4X5v8ADZl3c3e5S4e5mG1u4f4H4H3Ytq4lqv1R1n8N7uV4vS3V2s8J5n8m6b4v6m0f2p2r3h0T4v0kZ9x3l4M7m9OqV3aVb7m5eP5z6m5d0nG9Q8n0q6t3V4m9b2V7N1jW9rXj5Z6j5O1T7a8p1XQ4t3vOytnJ2r7v1L+8v2u2r9V+9d9m5d0m2rV4w7b2Z9T8m3p7J7m5Yzq+v2v6j0k7W7d5n1j3m2Xb1VxV1mO6n4m2mUj0k6r8y7v2+o2f4tq8H1q7r7d1T9p3V8Zc7Uj9P8AF1u7fT1d3v6m7P7a2o7W1u6XWn0W2cZ6tH0r0u3l1q3b2r4e8n0f5l8rVd0b0mIiJWhCIiAiIgIiICIiAiIgIiICIiAiIgIiICIiAiIgI//2Q==');"></div>
+            <div class="lodge-copy">
+              <h4>Fairmont Mara Safari Club</h4>
+              <div class="tiny">The strongest lodge-led compromise in the premium Goway option.</div>
+            </div>
+          </article>
+        </div>
+
+        <div class="summary-panel">
+          <h3>Bottom line</h3>
+          <p>If the gorillas, golden monkeys, and keeping the spirit of your original route are the priority, the updated TourCan quote is still the best fit. It is no longer as far above budget as the first round, but it does still sit above the ideal range.</p>
+          <p>If staying below the $40k ceiling matters more than keeping Rwanda, the Goway Fairmont option is the strongest middle ground. It preserves a premium feel with better lodge character than the lower-cost Kenya circuit.</p>
+          <p>If price leads every decision, the Wonders of Kenya option works — but it should be viewed as a different trip rather than a trimmed version of the original.</p>
+        </div>
+      </div>
+      <div class="footer-note">Prepared for Mr and Mrs Billesberger · Sea to Sky Vacations</div>
+    </section>
+  </div>
+</body>
+</html>

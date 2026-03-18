@@ -512,33 +512,149 @@
         .icon-grid {
           grid-template-columns: 1fr;
         }
+        .modal {
+          padding: 16px;
+        }
+        .modal-header,
+        .modal-body {
+          padding-left: 18px;
+          padding-right: 18px;
+        }
+        .modal-title {
+          font-size: 26px;
+        }
+      }
+      body.modal-open {
+        overflow: hidden;
       }
       .modal {
-        display: none;
         position: fixed;
+        inset: 0;
         z-index: 999;
-        left: 0;
-        top: 0;
-        width: 100%;
-        height: 100%;
-        background: rgba(0, 0, 0, 0.75);
+        display: none;
+        align-items: center;
+        justify-content: center;
+        padding: 28px;
+        background: rgba(16, 31, 35, 0.72);
+        backdrop-filter: blur(6px);
       }
-
+      .modal.is-open {
+        display: flex;
+      }
       .modal-content {
-        background: white;
-        margin: 3% auto;
-        padding: 20px;
-        width: 90%;
-        max-width: 1200px;
-        height: 85vh;
-        overflow: auto;
-        border-radius: 10px;
+        width: min(1240px, 100%);
+        max-height: min(90vh, 920px);
+        display: grid;
+        grid-template-rows: auto 1fr;
+        background: linear-gradient(180deg, #fffdf8 0%, #f8f2e8 100%);
+        border: 1px solid rgba(219, 203, 179, 0.9);
+        border-radius: 28px;
+        box-shadow: 0 24px 60px rgba(24, 50, 58, 0.22);
+        overflow: hidden;
       }
-
+      .modal-header {
+        display: flex;
+        align-items: flex-start;
+        justify-content: space-between;
+        gap: 18px;
+        padding: 22px 24px 20px;
+        border-bottom: 1px solid var(--line);
+      }
+      .modal-kicker {
+        margin-bottom: 8px;
+        font-size: 12px;
+        font-weight: 800;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+        color: var(--teal);
+      }
+      .modal-title {
+        margin: 0;
+        font-size: 32px;
+        line-height: 1.05;
+        letter-spacing: -0.03em;
+        color: var(--ink);
+      }
+      .modal-subtitle {
+        margin: 8px 0 0;
+        max-width: 760px;
+        font-size: 16px;
+        line-height: 1.6;
+        color: var(--muted);
+      }
       .close-modal {
-        float: right;
+        width: 44px;
+        height: 44px;
+        border: 1px solid var(--line);
+        border-radius: 999px;
+        background: white;
+        color: var(--ink);
         font-size: 28px;
+        line-height: 1;
         cursor: pointer;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        flex-shrink: 0;
+      }
+      .modal-body {
+        padding: 20px 24px 24px;
+        overflow: auto;
+      }
+      .modal-stage {
+        min-height: min(72vh, 760px);
+        padding: 18px;
+        border: 1px solid var(--line);
+        border-radius: 24px;
+        background: rgba(255, 255, 255, 0.72);
+      }
+      .travefy-mount {
+        min-height: min(68vh, 700px);
+      }
+      .travefy-frame {
+        min-height: min(68vh, 700px);
+        width: 100%;
+        border: 0;
+        border-radius: 18px;
+        background: white;
+      }
+      .modal-loading,
+      .modal-fallback {
+        border: 1px solid var(--line);
+        border-radius: 18px;
+        padding: 16px 18px;
+        background: linear-gradient(180deg, #fffdf8 0%, #fbf7f1 100%);
+        color: var(--muted);
+      }
+      .modal-fallback[hidden],
+      .modal-loading[hidden] {
+        display: none;
+      }
+      .modal-fallback {
+        margin-top: 14px;
+      }
+      .modal-fallback p {
+        margin: 0 0 14px;
+        line-height: 1.6;
+      }
+      .modal-fallback-actions {
+        display: flex;
+        gap: 10px;
+        flex-wrap: wrap;
+      }
+      .secondary-button {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        padding: 12px 18px;
+        border-radius: 999px;
+        border: 1px solid var(--line);
+        background: white;
+        color: var(--ink);
+        text-decoration: none;
+        font-size: 14px;
+        font-weight: 700;
+        letter-spacing: 0.02em;
       }
       .primary-button {
         background: var(--teal);
@@ -1089,6 +1205,8 @@
               <button
                 class="primary-button open-itinerary"
                 data-itinerary-id="6yw9rqrb4znsqz2aw9vkp94vfz9ltnq"
+                data-itinerary-title="TourCan Custom Safari"
+                data-itinerary-subtitle="Your closest match to the original vision, including Rwanda, Kenya, and Victoria Falls."
               >
                 View Interactive Itinerary
               </button>
@@ -1114,6 +1232,8 @@
               <button
                 class="primary-button open-itinerary"
                 data-itinerary-id="6yw9rqrb4bbsqz2aq95cqjptqf85msq"
+                data-itinerary-title="Goway Fairmont Safari"
+                data-itinerary-subtitle="The premium compromise itinerary with a Kenya-first flow and a polished Fairmont-led finish."
               >
                 View Interactive Itinerary
               </button>
@@ -1139,6 +1259,8 @@
               <button
                 class="primary-button open-itinerary"
                 data-itinerary-id="6yw9rqrbgpywqz2a6b82pcg4z58ccdq"
+                data-itinerary-title="Goway Wonders of Kenya"
+                data-itinerary-subtitle="The lowest-cost itinerary, focused on a simplified Kenya circuit with a lighter overall structure."
               >
                 View Interactive Itinerary
               </button>
@@ -1358,80 +1480,153 @@
         </div>
       </section>
     </div>
-    <div id="itineraryModal" class="modal">
+    <div id="itineraryModal" class="modal" aria-hidden="true">
       <div class="modal-content">
-        <span class="close-modal">&times;</span>
-
-        <div
-          id="itineraryEmbed"
-          data-travefy-itinerary-id="6yw9rqrb4bbsqz2aq95cqjptqf85msq"
-          class="travefy-itinerary"
-        ></div>
+        <div class="modal-header">
+          <div>
+            <div class="modal-kicker">Interactive itinerary</div>
+            <h2 id="itineraryModalTitle" class="modal-title">
+              Detailed itinerary
+            </h2>
+            <p id="itineraryModalSubtitle" class="modal-subtitle">
+              Explore the day-by-day plan, accommodations, and routing details.
+            </p>
+          </div>
+          <button
+            type="button"
+            class="close-modal"
+            aria-label="Close itinerary modal"
+          >
+            &times;
+          </button>
+        </div>
+        <div class="modal-body">
+          <div class="modal-stage">
+            <div id="modalLoading" class="modal-loading">
+              Loading interactive itinerary...
+            </div>
+            <div id="travefyMount" class="travefy-mount"></div>
+            <div id="modalFallback" class="modal-fallback" hidden>
+              <p>
+                If the interactive itinerary does not appear, open it in a new
+                tab instead.
+              </p>
+              <div class="modal-fallback-actions">
+                <a
+                  id="itineraryFallbackLink"
+                  class="secondary-button"
+                  href="#"
+                  target="_blank"
+                  rel="noreferrer"
+                  >Open in new tab</a
+                >
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
-
-    <script
-      data-version="v0"
-      id="travefy-itinerary-embedder"
-      type="text/javascript"
-    >
-      (function () {
-        function l() {
-          var s = document.createElement("script");
-          s.type = "text/javascript";
-          s.async = true;
-          s.src = "https://d1h0qti89a78h.cloudfront.net/embed/itinerary.1.0.js";
-          var e = document.getElementById("travefy-itinerary-embedder");
-          e.parentNode.insertBefore(s, e);
-        }
-        if (window.attachEvent) {
-          window.attachEvent("onload", l);
-        } else {
-          window.addEventListener("load", l, false);
-        }
-      })();
-    </script>
     <script>
       const modal = document.getElementById("itineraryModal");
-      let itineraryEmbed = document.getElementById("itineraryEmbed");
+      const modalTitle = document.getElementById("itineraryModalTitle");
+      const modalSubtitle = document.getElementById("itineraryModalSubtitle");
+      const modalLoading = document.getElementById("modalLoading");
+      const modalFallback = document.getElementById("modalFallback");
+      const travefyMount = document.getElementById("travefyMount");
+      const fallbackLink = document.getElementById("itineraryFallbackLink");
       const openButtons = document.querySelectorAll(".open-itinerary");
       const closeBtn = document.querySelector(".close-modal");
-      const travefyScriptSrc =
-        "https://d1h0qti89a78h.cloudfront.net/embed/itinerary.1.0.js";
+      let fallbackTimer = null;
+      let activeFrame = null;
 
-      function refreshTravefyEmbed(itineraryId) {
-        itineraryEmbed.outerHTML =
-          '<div id="itineraryEmbed" data-travefy-itinerary-id="' +
-          itineraryId +
-          '" class="travefy-itinerary"></div>';
-        itineraryEmbed = document.getElementById("itineraryEmbed");
+      function getTripUrl(itineraryId) {
+        return "https://travefy.com/trip/" + itineraryId;
+      }
 
-        const script = document.createElement("script");
-        script.type = "text/javascript";
-        script.async = true;
-        script.src = travefyScriptSrc;
-        document.body.appendChild(script);
+      function resetModalState() {
+        window.clearTimeout(fallbackTimer);
+        modalLoading.hidden = false;
+        modalFallback.hidden = true;
+        travefyMount.innerHTML = "";
+        activeFrame = null;
+      }
+
+      function closeModal() {
+        modal.classList.remove("is-open");
+        modal.setAttribute("aria-hidden", "true");
+        document.body.classList.remove("modal-open");
+        resetModalState();
+      }
+
+      function showFallback() {
+        if (!activeFrame) {
+          modalLoading.hidden = true;
+          modalFallback.hidden = false;
+        }
+      }
+
+      function mountTravefyEmbed(itineraryId) {
+        const frame = document.createElement("iframe");
+        frame.className = "travefy-frame";
+        frame.title = "Interactive itinerary";
+        frame.src = getTripUrl(itineraryId);
+        frame.loading = "eager";
+        frame.referrerPolicy = "strict-origin-when-cross-origin";
+        frame.allowFullscreen = true;
+        frame.addEventListener("load", function () {
+          activeFrame = frame;
+          modalLoading.hidden = true;
+          modalFallback.hidden = true;
+          window.clearTimeout(fallbackTimer);
+        });
+        frame.addEventListener("error", function () {
+          modalLoading.hidden = true;
+          modalFallback.hidden = false;
+        });
+        travefyMount.replaceChildren(frame);
+
+        fallbackTimer = window.setTimeout(showFallback, 6000);
       }
 
       openButtons.forEach(function (button) {
-        button.onclick = function () {
+        button.addEventListener("click", function () {
           const itineraryId = button.dataset.itineraryId;
-          if (itineraryId) {
-            refreshTravefyEmbed(itineraryId);
-          }
-          modal.style.display = "block";
-        };
+          const itineraryTitle =
+            button.dataset.itineraryTitle || "Detailed itinerary";
+          const itinerarySubtitle =
+            button.dataset.itinerarySubtitle ||
+            "Explore the day-by-day plan, accommodations, and routing details.";
+
+          modalTitle.textContent = itineraryTitle;
+          modalSubtitle.textContent = itinerarySubtitle;
+          fallbackLink.href = getTripUrl(itineraryId);
+
+          resetModalState();
+          modal.classList.add("is-open");
+          modal.setAttribute("aria-hidden", "false");
+          document.body.classList.add("modal-open");
+
+          window.requestAnimationFrame(function () {
+            window.requestAnimationFrame(function () {
+              mountTravefyEmbed(itineraryId);
+            });
+          });
+        });
       });
 
-      closeBtn.onclick = function () {
-        modal.style.display = "none";
-      };
+      closeBtn.addEventListener("click", closeModal);
 
-      window.onclick = function (event) {
-        if (event.target == modal) {
-          modal.style.display = "none";
+      modal.addEventListener("click", function (event) {
+        if (event.target === modal) {
+          closeModal();
         }
-      };
+      });
+
+      window.addEventListener("keydown", function (event) {
+        if (event.key === "Escape" && modal.classList.contains("is-open")) {
+          closeModal();
+        }
+      });
     </script>
   </body>
 </html>

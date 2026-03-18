@@ -611,9 +611,13 @@
       .travefy-mount {
         min-height: min(68vh, 700px);
       }
-      .travefy-frame {
+      .travefy-itinerary {
         min-height: min(68vh, 700px);
         width: 100%;
+      }
+      .travefy-itinerary iframe {
+        width: 100%;
+        min-height: min(68vh, 700px);
         border: 0;
         border-radius: 18px;
         background: white;
@@ -1258,7 +1262,7 @@
               </p>
               <button
                 class="primary-button open-itinerary"
-                data-itinerary-id="6yw9rqrbg5zsqz2aw6a6f2vcrxafr2a
+                data-itinerary-id="6yw9rqrbg5zsqz2aw6a6f2vcrxafr2a"
                 data-itinerary-title="Goway Wonders of Kenya"
                 data-itinerary-subtitle="The lowest-cost itinerary, focused on a simplified Kenya circuit with a lighter overall structure."
               >
@@ -1536,19 +1540,30 @@
       const fallbackLink = document.getElementById("itineraryFallbackLink");
       const openButtons = document.querySelectorAll(".open-itinerary");
       const closeBtn = document.querySelector(".close-modal");
+      const travefyScriptSrc =
+        "https://d1h0qti89a78h.cloudfront.net/embed/itinerary.1.0.js";
+      const travefyRuntimeScriptId = "travefy-itinerary-runtime";
       let fallbackTimer = null;
-      let activeFrame = null;
+      let embedObserver = null;
+      let embedRequestToken = 0;
 
       function getTripUrl(itineraryId) {
         return "https://travefy.com/trip/" + itineraryId;
       }
 
+      function disconnectEmbedObserver() {
+        if (embedObserver) {
+          embedObserver.disconnect();
+          embedObserver = null;
+        }
+      }
+
       function resetModalState() {
         window.clearTimeout(fallbackTimer);
+        disconnectEmbedObserver();
         modalLoading.hidden = false;
         modalFallback.hidden = true;
         travefyMount.innerHTML = "";
-        activeFrame = null;
       }
 
       function closeModal() {
@@ -1558,35 +1573,89 @@
         resetModalState();
       }
 
-      function showFallback() {
-        if (!activeFrame) {
+      function hasRenderedEmbed() {
+        return Boolean(travefyMount.querySelector("iframe"));
+      }
+
+      function showFallback(requestToken) {
+        if (requestToken !== embedRequestToken) return;
+        if (!hasRenderedEmbed()) {
           modalLoading.hidden = true;
           modalFallback.hidden = false;
         }
       }
 
-      function mountTravefyEmbed(itineraryId) {
-        const frame = document.createElement("iframe");
-        frame.className = "travefy-frame";
-        frame.title = "Interactive itinerary";
-        frame.src = getTripUrl(itineraryId);
-        frame.loading = "eager";
-        frame.referrerPolicy = "strict-origin-when-cross-origin";
-        frame.allowFullscreen = true;
-        frame.addEventListener("load", function () {
-          activeFrame = frame;
-          modalLoading.hidden = true;
-          modalFallback.hidden = true;
-          window.clearTimeout(fallbackTimer);
-        });
-        frame.addEventListener("error", function () {
-          modalLoading.hidden = true;
-          modalFallback.hidden = false;
-        });
-        travefyMount.replaceChildren(frame);
+      function loadTravefyScript() {
+        return new Promise(function (resolve, reject) {
+          const existingScript = document.getElementById(travefyRuntimeScriptId);
+          if (existingScript) {
+            existingScript.remove();
+          }
 
-        fallbackTimer = window.setTimeout(showFallback, 6000);
+          const script = document.createElement("script");
+          script.id = travefyRuntimeScriptId;
+          script.async = true;
+          script.src = travefyScriptSrc + "?t=" + Date.now();
+          script.onload = resolve;
+          script.onerror = reject;
+          document.body.appendChild(script);
+        });
       }
+
+      function watchForEmbedRender(requestToken) {
+        disconnectEmbedObserver();
+        embedObserver = new MutationObserver(function () {
+          if (requestToken !== embedRequestToken) return;
+          if (hasRenderedEmbed()) {
+            modalLoading.hidden = true;
+            modalFallback.hidden = true;
+            window.clearTimeout(fallbackTimer);
+            disconnectEmbedObserver();
+          }
+        });
+        embedObserver.observe(travefyMount, {
+          childList: true,
+          subtree: true,
+        });
+      }
+
+      function mountTravefyEmbed(itineraryId) {
+        const requestToken = ++embedRequestToken;
+        const embed = document.createElement("div");
+        embed.className = "travefy-itinerary";
+        embed.setAttribute("data-travefy-itinerary-id", itineraryId);
+        travefyMount.replaceChildren(embed);
+
+        watchForEmbedRender(requestToken);
+
+        loadTravefyScript()
+          .then(function () {
+            window.setTimeout(function () {
+              if (hasRenderedEmbed()) {
+                modalLoading.hidden = true;
+                modalFallback.hidden = true;
+                window.clearTimeout(fallbackTimer);
+                disconnectEmbedObserver();
+              }
+            }, 1200);
+          })
+          .catch(function () {
+            showFallback(requestToken);
+            disconnectEmbedObserver();
+          });
+
+        fallbackTimer = window.setTimeout(function () {
+          showFallback(requestToken);
+          disconnectEmbedObserver();
+        }, 7000);
+      }
+
+      fallbackLink.addEventListener("click", function (event) {
+        const href = fallbackLink.getAttribute("href");
+        if (!href || href === "#") {
+          event.preventDefault();
+        }
+      });
 
       openButtons.forEach(function (button) {
         button.addEventListener("click", function () {

@@ -542,8 +542,8 @@
         display: flex;
       }
       .modal-content {
-        width: min(1240px, 100%);
-        max-height: min(90vh, 920px);
+        width: min(1380px, calc(100vw - 36px));
+        height: min(92vh, 940px);
         display: grid;
         grid-template-rows: auto 1fr;
         background: linear-gradient(180deg, #fffdf8 0%, #f8f2e8 100%);
@@ -598,44 +598,68 @@
         flex-shrink: 0;
       }
       .modal-body {
-        padding: 20px 24px 24px;
-        overflow: auto;
+        padding: 18px 20px 20px;
+        overflow: hidden;
       }
       .modal-stage {
-        min-height: min(72vh, 760px);
-        padding: 18px;
+        position: relative;
+        height: 100%;
+        min-height: min(78vh, 780px);
+        padding: 0;
         border: 1px solid var(--line);
         border-radius: 24px;
-        background: rgba(255, 255, 255, 0.72);
+        background: rgba(255, 255, 255, 0.82);
+        overflow: hidden;
       }
       .travefy-mount {
-        min-height: min(68vh, 700px);
+        width: 100%;
+        height: 100%;
+        min-height: min(78vh, 780px);
+      }
+      .travefy-shell,
+      .travefy-itinerary {
+        width: 100%;
+        height: 100%;
+        min-height: min(78vh, 780px);
+      }
+      .travefy-shell {
+        display: none;
+      }
+      .travefy-shell.is-active {
+        display: block;
       }
       .travefy-itinerary {
-        min-height: min(68vh, 700px);
         width: 100%;
       }
       .travefy-itinerary iframe {
         width: 100%;
-        min-height: min(68vh, 700px);
+        height: min(78vh, 780px);
+        min-height: min(78vh, 780px);
         border: 0;
-        border-radius: 18px;
         background: white;
       }
       .modal-loading,
       .modal-fallback {
+        position: absolute;
+        left: 20px;
+        right: 20px;
+        z-index: 3;
         border: 1px solid var(--line);
         border-radius: 18px;
         padding: 16px 18px;
         background: linear-gradient(180deg, #fffdf8 0%, #fbf7f1 100%);
         color: var(--muted);
+        box-shadow: 0 18px 40px rgba(24, 50, 58, 0.12);
+      }
+      .modal-loading {
+        top: 20px;
+      }
+      .modal-fallback {
+        bottom: 20px;
       }
       .modal-fallback[hidden],
       .modal-loading[hidden] {
         display: none;
-      }
-      .modal-fallback {
-        margin-top: 14px;
       }
       .modal-fallback p {
         margin: 0 0 14px;
@@ -645,6 +669,19 @@
         display: flex;
         gap: 10px;
         flex-wrap: wrap;
+      }
+      .travefy-cache {
+        position: absolute;
+        left: -200vw;
+        top: 0;
+        width: min(1380px, calc(100vw - 36px));
+        height: min(92vh, 940px);
+        overflow: hidden;
+        visibility: hidden;
+        pointer-events: none;
+      }
+      .travefy-cache .travefy-shell {
+        display: block;
       }
       .secondary-button {
         display: inline-flex;
@@ -1530,6 +1567,56 @@
         </div>
       </div>
     </div>
+    <div id="travefyCache" class="travefy-cache" aria-hidden="true">
+      <div
+        class="travefy-shell"
+        data-itinerary-shell="6yw9rqrb4znsqz2aw9vkp94vfz9ltnq"
+      >
+        <div
+          data-travefy-itinerary-id="6yw9rqrb4znsqz2aw9vkp94vfz9ltnq"
+          class="travefy-itinerary"
+        ></div>
+      </div>
+      <div
+        class="travefy-shell"
+        data-itinerary-shell="6yw9rqrbgpywqz2a6b82pcg4z58ccdq"
+      >
+        <div
+          data-travefy-itinerary-id="6yw9rqrbgpywqz2a6b82pcg4z58ccdq"
+          class="travefy-itinerary"
+        ></div>
+      </div>
+      <div
+        class="travefy-shell"
+        data-itinerary-shell="6yw9rqrbg5zsqz2aw6a6f2vcrxafr2a"
+      >
+        <div
+          data-travefy-itinerary-id="6yw9rqrbg5zsqz2aw6a6f2vcrxafr2a"
+          class="travefy-itinerary"
+        ></div>
+      </div>
+    </div>
+    <script
+      data-version="v0"
+      id="travefy-itinerary-embedder"
+      type="text/javascript"
+    >
+      (function () {
+        function l() {
+          var s = document.createElement("script");
+          s.type = "text/javascript";
+          s.async = true;
+          s.src = "//d1h0qti89a78h.cloudfront.net/embed/itinerary.1.0.js";
+          var e = document.getElementById("travefy-itinerary-embedder");
+          e.parentNode.insertBefore(s, e);
+        }
+        if (window.attachEvent) {
+          window.attachEvent("onload", l);
+        } else {
+          window.addEventListener("load", l, false);
+        }
+      })();
+    </script>
     <script>
       const modal = document.getElementById("itineraryModal");
       const modalTitle = document.getElementById("itineraryModalTitle");
@@ -1537,18 +1624,22 @@
       const modalLoading = document.getElementById("modalLoading");
       const modalFallback = document.getElementById("modalFallback");
       const travefyMount = document.getElementById("travefyMount");
+      const travefyCache = document.getElementById("travefyCache");
       const fallbackLink = document.getElementById("itineraryFallbackLink");
       const openButtons = document.querySelectorAll(".open-itinerary");
       const closeBtn = document.querySelector(".close-modal");
-      const travefyScriptSrc =
-        "https://d1h0qti89a78h.cloudfront.net/embed/itinerary.1.0.js";
-      const travefyRuntimeScriptId = "travefy-itinerary-runtime";
       let fallbackTimer = null;
       let embedObserver = null;
-      let embedRequestToken = 0;
+      let activeShell = null;
 
       function getTripUrl(itineraryId) {
         return "https://travefy.com/trip/" + itineraryId;
+      }
+
+      function getShell(itineraryId) {
+        return document.querySelector(
+          '[data-itinerary-shell="' + itineraryId + '"]',
+        );
       }
 
       function disconnectEmbedObserver() {
@@ -1563,6 +1654,11 @@
         disconnectEmbedObserver();
         modalLoading.hidden = false;
         modalFallback.hidden = true;
+        if (activeShell) {
+          activeShell.classList.remove("is-active");
+          travefyCache.appendChild(activeShell);
+          activeShell = null;
+        }
         travefyMount.innerHTML = "";
       }
 
@@ -1577,35 +1673,16 @@
         return Boolean(travefyMount.querySelector("iframe"));
       }
 
-      function showFallback(requestToken) {
-        if (requestToken !== embedRequestToken) return;
+      function showFallback() {
         if (!hasRenderedEmbed()) {
           modalLoading.hidden = true;
           modalFallback.hidden = false;
         }
       }
 
-      function loadTravefyScript() {
-        return new Promise(function (resolve, reject) {
-          const existingScript = document.getElementById(travefyRuntimeScriptId);
-          if (existingScript) {
-            existingScript.remove();
-          }
-
-          const script = document.createElement("script");
-          script.id = travefyRuntimeScriptId;
-          script.async = true;
-          script.src = travefyScriptSrc + "?t=" + Date.now();
-          script.onload = resolve;
-          script.onerror = reject;
-          document.body.appendChild(script);
-        });
-      }
-
-      function watchForEmbedRender(requestToken) {
+      function watchForEmbedRender() {
         disconnectEmbedObserver();
         embedObserver = new MutationObserver(function () {
-          if (requestToken !== embedRequestToken) return;
           if (hasRenderedEmbed()) {
             modalLoading.hidden = true;
             modalFallback.hidden = true;
@@ -1620,34 +1697,28 @@
       }
 
       function mountTravefyEmbed(itineraryId) {
-        const requestToken = ++embedRequestToken;
-        const embed = document.createElement("div");
-        embed.className = "travefy-itinerary";
-        embed.setAttribute("data-travefy-itinerary-id", itineraryId);
-        travefyMount.replaceChildren(embed);
+        const shell = getShell(itineraryId);
+        if (!shell) {
+          showFallback();
+          return;
+        }
 
-        watchForEmbedRender(requestToken);
+        activeShell = shell;
+        activeShell.classList.add("is-active");
+        travefyMount.replaceChildren(activeShell);
 
-        loadTravefyScript()
-          .then(function () {
-            window.setTimeout(function () {
-              if (hasRenderedEmbed()) {
-                modalLoading.hidden = true;
-                modalFallback.hidden = true;
-                window.clearTimeout(fallbackTimer);
-                disconnectEmbedObserver();
-              }
-            }, 1200);
-          })
-          .catch(function () {
-            showFallback(requestToken);
-            disconnectEmbedObserver();
-          });
+        if (hasRenderedEmbed()) {
+          modalLoading.hidden = true;
+          modalFallback.hidden = true;
+          return;
+        }
+
+        watchForEmbedRender();
 
         fallbackTimer = window.setTimeout(function () {
-          showFallback(requestToken);
+          showFallback();
           disconnectEmbedObserver();
-        }, 7000);
+        }, 12000);
       }
 
       fallbackLink.addEventListener("click", function (event) {

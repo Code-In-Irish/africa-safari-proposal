@@ -1,0 +1,551 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Choose your seats — Africa 2026</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&family=IBM+Plex+Mono:wght@400;600&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --ink:#16232E; --ink-soft:#41535F; --paper:#E4E9EC; --card:#fff;
+  --line:#CBD5DA; --gold:#B87D0F; --gold-soft:#F6EAD0;
+  --moss:#2E7D5B; --moss-soft:#DDEDE5; --dead:#C9D1D6;
+  --radius:3px; --seatW:44px; --seatH:40px; --seatF:11px; --gapW:22px; --numW:26px;
+}
+@media(max-width:760px){:root{--seatW:36px;--seatH:34px;--seatF:10px;--gapW:16px;--numW:22px}}
+@media(max-width:440px){:root{--seatW:30px;--seatH:31px;--seatF:9px;--gapW:12px;--numW:18px}}
+*{box-sizing:border-box}
+html,body{margin:0;padding:0}
+body{background:var(--paper);color:var(--ink);
+  font-family:"IBM Plex Sans",-apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif;
+  font-size:15px;line-height:1.5;-webkit-font-smoothing:antialiased;-webkit-text-size-adjust:100%}
+h1,h2{font-family:"Space Grotesk","IBM Plex Sans",sans-serif;margin:0;letter-spacing:-0.01em}
+
+header{background:var(--ink);color:#fff;padding:22px 18px 18px;position:sticky;top:0;z-index:20}
+.hw{max-width:1180px;margin:0 auto}
+.eyebrow{font-family:"IBM Plex Mono",monospace;font-size:10.5px;letter-spacing:.18em;
+  text-transform:uppercase;color:var(--gold);margin-bottom:7px}
+header h1{font-size:21px;font-weight:700;line-height:1.2}
+@media(min-width:760px){header h1{font-size:26px}}
+header p{margin:8px 0 0;color:#A8BAC6;font-size:13.5px;max-width:62ch}
+@media(max-width:760px){header p{display:none}}
+.pax-strip{display:flex;gap:8px;margin-top:14px}
+.pax-btn{flex:1;display:flex;align-items:center;justify-content:center;gap:8px;
+  background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.18);color:#fff;
+  border-radius:var(--radius);padding:11px 12px;cursor:pointer;font:inherit;font-size:14px}
+.pax-btn.on{background:var(--gold);border-color:var(--gold);color:#1B1204;font-weight:600}
+.pax-dot{width:9px;height:9px;border-radius:50%;background:currentColor;opacity:.85}
+
+main{max-width:1180px;margin:0 auto;padding:18px;display:grid;grid-template-columns:288px 1fr;gap:20px;align-items:start}
+@media(max-width:900px){main{grid-template-columns:1fr;padding:14px;gap:14px}}
+.panel{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);overflow:hidden}
+.panel-head{padding:11px 15px;border-bottom:1px solid var(--line);
+  font-family:"IBM Plex Mono",monospace;font-size:10.5px;letter-spacing:.16em;
+  text-transform:uppercase;color:var(--ink-soft);display:flex;justify-content:space-between;gap:10px}
+.save-note{text-transform:none;letter-spacing:0;font-family:"IBM Plex Sans",sans-serif;font-size:11.5px}
+
+.fl{display:grid;grid-template-columns:24px 1fr auto;gap:9px;align-items:center;width:100%;
+  text-align:left;background:none;border:0;border-bottom:1px solid #EDF1F3;padding:11px 13px;
+  cursor:pointer;font:inherit;color:inherit}
+.fl:last-child{border-bottom:0}
+.fl.on{background:var(--ink);color:#fff}
+.fl.on .fl-sub{color:#A8BAC6}
+.fl-idx{font-family:"IBM Plex Mono",monospace;font-size:11px;color:var(--gold);font-weight:600}
+.fl-main{font-weight:600;font-size:13.5px}
+.fl-sub{font-size:11.5px;color:var(--ink-soft);font-family:"IBM Plex Mono",monospace}
+.fl-state{width:9px;height:9px;border-radius:50%;background:var(--dead)}
+.fl-state.part{background:var(--gold)}
+.fl-state.done{background:var(--moss)}
+@media(max-width:900px){
+  #flightList{display:flex;overflow-x:auto;-webkit-overflow-scrolling:touch;scroll-snap-type:x mandatory}
+  .fl{grid-template-columns:auto;min-width:150px;border-bottom:0;border-right:1px solid #EDF1F3;gap:2px;scroll-snap-align:start}
+  .fl-state{margin-top:4px}
+}
+.nav{display:flex;gap:8px;padding:12px 15px;border-top:1px solid var(--line);background:#F7F9FA}
+.nav button{flex:1;border:1px solid var(--line);background:#fff;border-radius:var(--radius);
+  padding:11px;font:inherit;font-size:13.5px;font-weight:600;cursor:pointer;color:var(--ink)}
+.nav button:disabled{opacity:.4;cursor:default}
+
+.map-head{padding:15px 16px;border-bottom:1px solid var(--line)}
+.map-head h2{font-size:17px}
+.map-meta{margin-top:4px;font-size:12px;color:var(--ink-soft);font-family:"IBM Plex Mono",monospace}
+.cabin-scroll{overflow-x:auto;-webkit-overflow-scrolling:touch;padding:18px 8px 22px}
+.cabin{display:flex;justify-content:center;min-width:min-content}
+.nose{height:30px;border:1px solid var(--line);border-bottom:0;border-radius:60% 60% 0 0/30px 30px 0 0;margin:0 6px}
+.colrow{display:flex;gap:5px;justify-content:center;margin:7px 0 4px}
+.colhead{width:var(--seatW);text-align:center;font-family:"IBM Plex Mono",monospace;font-size:10.5px;color:var(--ink-soft)}
+.colhead.gap{width:var(--gapW)}
+.seatrow{display:flex;gap:5px;align-items:center;justify-content:center;margin-bottom:5px}
+.rownum{width:var(--numW);text-align:right;padding-right:5px;font-family:"IBM Plex Mono",monospace;font-size:10.5px;color:var(--ink-soft)}
+.rownum.r{text-align:left;padding:0 0 0 5px}
+.aisle{width:var(--gapW)}
+.divider{margin:9px 24px;border-top:1px dashed var(--line);position:relative}
+.divider span{position:absolute;top:-8px;left:50%;transform:translateX(-50%);background:var(--card);
+  padding:0 8px;font-family:"IBM Plex Mono",monospace;font-size:9.5px;letter-spacing:.12em;
+  text-transform:uppercase;color:var(--ink-soft);white-space:nowrap}
+.seat{width:var(--seatW);height:var(--seatH);border-radius:7px 7px 4px 4px;border:1px solid var(--line);
+  background:#fff;font-family:"IBM Plex Mono",monospace;font-size:var(--seatF);font-weight:600;
+  color:var(--ink);cursor:pointer;padding:0;line-height:1.1;display:flex;align-items:center;
+  justify-content:center;transition:transform .1s,box-shadow .1s;touch-action:manipulation}
+.seat.free{background:var(--moss-soft);border-color:#A9CDBD;color:#1E5B41}
+.seat.paid{background:var(--gold-soft);border-color:#E0C489;color:#7A5205}
+.seat.gone{background:var(--dead);border-color:var(--dead);color:#8899A2;cursor:not-allowed}
+.seat.none{border:0;background:none;cursor:default}
+.seat.taken{background:var(--ink);border-color:var(--ink);color:#fff}
+.seat.taken.b{background:var(--gold);border-color:var(--gold);color:#1B1204}
+.seat:focus-visible{outline:3px solid var(--gold);outline-offset:2px}
+@media(hover:hover){.seat:hover:not(:disabled){transform:translateY(-2px);box-shadow:0 3px 0 rgba(22,35,46,.16)}}
+
+.legend{display:flex;flex-wrap:wrap;gap:12px;padding:0 16px 14px;font-size:12px;color:var(--ink-soft)}
+.legend i{width:15px;height:13px;border-radius:4px 4px 2px 2px;display:inline-block;vertical-align:-2px;margin-right:5px;border:1px solid var(--line)}
+.lg-free{background:var(--moss-soft);border-color:#A9CDBD}
+.lg-paid{background:var(--gold-soft);border-color:#E0C489}
+.lg-gone{background:var(--dead);border-color:var(--dead)}
+.lg-a{background:var(--ink);border-color:var(--ink)}
+.lg-b{background:var(--gold);border-color:var(--gold)}
+.picked{display:flex;flex-wrap:wrap;gap:9px;padding:0 16px 16px}
+.chip{border:1px solid var(--line);border-radius:var(--radius);padding:8px 11px;font-size:13px;
+  display:flex;align-items:center;gap:8px;background:#F7F9FA}
+.chip b{font-family:"IBM Plex Mono",monospace}
+.chip button{border:0;background:none;color:var(--ink-soft);cursor:pointer;font:inherit;font-size:12px;text-decoration:underline;padding:0}
+
+.summary{max-width:1180px;margin:0 auto;padding:0 18px 40px}
+@media(max-width:900px){.summary{padding:0 14px 30px}}
+.tw{overflow-x:auto}
+table{width:100%;border-collapse:collapse;font-size:13.5px;min-width:520px}
+th,td{padding:9px 12px;text-align:left;border-bottom:1px solid #EDF1F3}
+th{font-family:"IBM Plex Mono",monospace;font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:var(--ink-soft);font-weight:600}
+td.num,th.num{text-align:right;font-family:"IBM Plex Mono",monospace}
+tr.total td{border-bottom:0;border-top:2px solid var(--ink);font-weight:600}
+.seatcell{font-family:"IBM Plex Mono",monospace;font-weight:600}
+.empty{color:#9AA9B2}
+.actions{display:flex;flex-wrap:wrap;gap:9px;padding:14px}
+.btn{flex:1;min-width:180px;border:1px solid var(--ink);background:var(--ink);color:#fff;
+  border-radius:var(--radius);padding:13px 16px;font:inherit;font-weight:600;font-size:14px;cursor:pointer}
+.btn.ghost{background:none;color:var(--ink)}
+.note{padding:0 14px 16px;font-size:12.5px;color:var(--ink-soft);max-width:78ch}
+.outbox{display:none;padding:0 14px 16px}
+.outbox.on{display:block}
+.outbox p{margin:0 0 8px;font-size:13px;color:var(--ink-soft)}
+.outbox textarea{width:100%;height:230px;border:1px solid var(--line);border-radius:var(--radius);
+  padding:12px;font-family:"IBM Plex Mono",monospace;font-size:12px;line-height:1.55;color:var(--ink);
+  background:#F7F9FA;resize:vertical;-webkit-user-select:text;user-select:text}
+footer{max-width:1180px;margin:0 auto;padding:0 18px 50px;font-size:12.5px;color:var(--ink-soft)}
+footer strong{color:var(--ink)}
+.toast{position:fixed;left:50%;bottom:22px;transform:translateX(-50%);background:var(--ink);color:#fff;
+  padding:13px 20px;border-radius:var(--radius);font-size:14px;opacity:0;pointer-events:none;
+  transition:opacity .2s;z-index:60;max-width:88vw;text-align:center}
+.toast.on{opacity:1}
+@media (prefers-reduced-motion:reduce){*{transition:none!important}}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="hw">
+    <div class="eyebrow">Sea to Sky Vacations · Trevello Travel</div>
+    <h1>Choose your seats</h1>
+    <p>Ten flights, two travellers. Pick who you're choosing for, then tap a seat on each flight. When you're done, tap "Show my choices" at the bottom and send them to Tom.</p>
+    <div class="pax-strip" id="paxStrip"></div>
+  </div>
+</header>
+
+<main>
+  <section class="panel">
+    <div class="panel-head"><span>Your flights</span></div>
+    <div id="flightList"></div>
+    <div class="nav">
+      <button id="prevBtn">← Previous</button>
+      <button id="nextBtn">Next flight →</button>
+    </div>
+  </section>
+
+  <section class="panel">
+    <div class="map-head">
+      <h2 id="mapTitle"></h2>
+      <div class="map-meta" id="mapMeta"></div>
+    </div>
+    <div class="cabin-scroll"><div class="cabin"><div id="cabinInner"></div></div></div>
+    <div class="legend">
+      <span><i class="lg-free"></i>No charge</span>
+      <span><i class="lg-paid"></i>Paid seat</span>
+      <span><i class="lg-gone"></i>Taken</span>
+      <span><i class="lg-a"></i>Aaron</span>
+      <span><i class="lg-b"></i>Barbara</span>
+    </div>
+    <div class="picked" id="picked"></div>
+  </section>
+</main>
+
+<div class="summary">
+  <div class="panel">
+    <div class="panel-head"><span>Your selections</span><span class="save-note" id="saveNote"></span></div>
+    <div class="tw"><table id="summaryTable"></table></div>
+    <div class="actions">
+      <button class="btn" id="showBtn">Show my choices</button>
+      <button class="btn ghost" id="clearBtn">Start over</button>
+    </div>
+    <div class="outbox" id="outbox">
+      <p>Copy everything below and text or email it to Tom. Tap inside, then Select All → Copy.</p>
+      <textarea id="outText" readonly></textarea>
+      <div class="actions" style="padding:10px 0 0">
+        <button class="btn" id="copyBtn">Copy to clipboard</button>
+      </div>
+    </div>
+    <p class="note">Nothing is booked yet — Tom confirms every seat with the airline once you send your choices. Paid seats are charged by the airline on top of your ticket.</p>
+  </div>
+</div>
+
+<footer><strong>Questions?</strong> Tom O'Connell · tomoconnell@trevello.com · 1 604 704 0174</footer>
+<div class="toast" id="toast"></div>
+
+<script>
+const PAX=[{id:"A",name:"Aaron"},{id:"B",name:"Barbara"}];
+const X="x",_=null;
+const STORE_KEY="seats:africa2026";
+
+const FLIGHTS=[
+{id:"QR720",route:"Seattle → Doha",code:"QR 0720",date:"Mon 21 Sep",times:"16:25 – 17:00 (+1)",dur:"14h 40m",note:"Boeing 777 · 3-4-3",
+ cols:["A","B","C","|","D","E","F","G","|","H","J","K"],rows:[
+ {n:16,s:[X,268,268,_,_,_,_,_,_,268,X,X]},
+ {n:17,s:[99,99,99,_,268,268,268,X,_,99,99,99]},
+ {n:18,s:[X,99,99,_,99,X,X,X,_,99,99,X]},
+ {n:19,s:[99,99,99,_,268,99,99,X,_,99,99,99]},
+ {n:20,s:[99,99,99,_,99,99,99,99,_,99,99,99]},
+ {n:21,s:[99,99,99,_,99,99,99,99,_,99,99,99]},
+ {n:22,s:[99,99,X,_,99,99,99,99,_,X,X,99]},
+ {gap:"Lavatories / galley"},
+ {n:23,s:[268,268,268,_,268,268,268,X,_,268,268,268]},
+ {n:24,s:[77,77,X,_,X,77,77,X,_,77,77,77]},
+ {n:25,s:[77,77,77,_,268,77,77,X,_,77,77,77]},
+ {n:26,s:[X,X,77,_,X,77,77,77,_,77,77,77]},
+ {n:27,s:[X,X,77,_,77,77,77,77,_,77,77,77]},
+ {n:28,s:[77,77,77,_,77,77,77,77,_,77,77,77]},
+ {n:29,s:[77,77,77,_,77,77,77,77,_,77,77,77]}]},
+
+{id:"QR1341",route:"Doha → Nairobi",code:"QR 1341",date:"Tue 22 Sep",times:"18:45 – 23:50",dur:"5h 05m",note:"3-4-3",
+ cols:["A","B","C","|","D","E","F","G","|","H","J","K"],rows:[
+ {n:15,s:[230,X,230,_,230,230,230,X,_,230,X,230]},
+ {n:16,s:[230,X,230,_,230,230,230,230,_,230,X,230]},
+ {n:17,s:[230,X,230,_,230,230,230,230,_,230,X,230]},
+ {gap:"Cabin divider"},
+ {n:20,s:[_,_,_,_,_,_,_,_,_,202,202,X]},
+ {n:21,s:[202,202,202,_,202,X,202,202,_,80,80,80]},
+ {n:22,s:[80,80,80,_,80,_,80,80,_,80,80,80]},
+ {n:23,s:[80,80,80,_,80,_,80,80,_,80,80,80]},
+ {n:24,s:[80,80,80,_,80,_,80,80,_,80,80,80]},
+ {n:25,s:[_,_,_,_,80,_,80,80,_,_,_,_]},
+ {gap:"Lavatories / galley"},
+ {n:26,s:[202,202,202,_,202,_,202,202,_,202,202,202]},
+ {n:27,s:[X,60,60,_,60,_,60,60,_,60,60,60]},
+ {n:28,s:[60,60,60,_,60,_,60,60,_,60,60,X]},
+ {n:29,s:[60,60,60,_,60,_,60,60,_,60,60,60]}]},
+
+{id:"4Z71",route:"Nairobi → Johannesburg",code:"4Z 0071",date:"Sat 3 Oct",times:"06:30 – 09:40",dur:"4h 10m",note:"Airlink · 2-2",
+ cols:["A","C","|","D","F"],rows:[
+ {n:3,s:[X,X,_,X,X]},{n:4,s:[X,X,_,X,X]},{n:5,s:[X,X,_,X,X]},{n:6,s:[X,X,_,X,X]},
+ {n:7,s:[X,X,_,X,X]},{n:8,s:[X,X,_,X,X]},{n:9,s:[X,X,_,X,X]},{n:10,s:[X,X,_,X,X]},
+ {gap:"Extra legroom"},
+ {n:11,s:[42,42,_,42,42]},
+ {n:12,s:[0,0,_,0,0]},{n:13,s:[0,0,_,0,0]},{n:14,s:[0,0,_,0,0]},
+ {n:15,s:[0,0,_,0,0]},{n:16,s:[0,0,_,0,0]},{n:17,s:[0,0,_,0,0]}]},
+
+{id:"4Z494",route:"Johannesburg → Victoria Falls",code:"4Z 0494",date:"Sat 3 Oct",times:"11:35 – 13:20",dur:"1h 45m",note:"Airlink · 2-2",
+ cols:["A","C","|","D","F"],rows:[
+ {n:5,s:[X,X,_,X,X]},{n:6,s:[X,X,_,X,X]},{n:7,s:[X,X,_,X,X]},{n:8,s:[X,X,_,X,X]},
+ {n:9,s:[X,X,_,X,X]},{n:10,s:[X,X,_,X,X]},{n:11,s:[X,X,_,X,X]},
+ {gap:"Extra legroom"},
+ {n:12,s:[43,43,_,43,43]},
+ {n:13,s:[0,0,_,0,0]},{n:14,s:[0,0,_,0,0]},{n:15,s:[X,0,_,0,0]},
+ {n:16,s:[0,0,_,0,0]},{n:17,s:[0,0,_,0,0]},{n:18,s:[0,0,_,0,0]},{n:19,s:[0,0,_,0,0]}]},
+
+{id:"4Z493",route:"Victoria Falls → Johannesburg",code:"4Z 0493",date:"Tue 6 Oct",times:"12:25 – 14:10",dur:"1h 45m",note:"Airlink · 2-2",
+ cols:["A","C","|","D","F"],rows:[
+ {n:5,s:[X,X,_,X,X]},{n:6,s:[X,X,_,X,X]},{n:7,s:[X,X,_,X,X]},{n:8,s:[X,X,_,X,X]},
+ {n:9,s:[X,X,_,X,X]},{n:10,s:[X,X,_,X,X]},{n:11,s:[X,X,_,X,X]},{n:12,s:[X,X,_,X,X]},
+ {n:13,s:[X,X,_,0,0]},{n:14,s:[0,0,_,0,0]},{n:15,s:[X,X,_,X,X]},{n:16,s:[X,X,_,0,X]},
+ {n:17,s:[0,0,_,0,0]},{n:18,s:[0,0,_,0,0]},{n:19,s:[0,0,_,0,0]}]},
+
+{id:"MK852",route:"Johannesburg → Mauritius",code:"MK 0852",date:"Wed 7 Oct",times:"13:45 – 19:45",dur:"4h 00m",note:"Air Mauritius · 2-4-2",
+ cols:["A","B","|","C","D","E","F","|","G","H"],rows:[
+ {n:10,s:[X,X,_,X,X,X,X,_,X,X]},
+ {n:11,s:[X,X,_,X,X,X,X,_,X,X]},
+ {n:12,s:[X,X,_,40,40,X,40,_,40,40]},
+ {gap:"Cabin divider"},
+ {n:14,s:[40,40,_,40,40,X,X,_,40,40]},
+ {n:15,s:[40,40,_,40,40,40,40,_,40,40]},
+ {n:16,s:[40,40,_,32,32,32,32,_,40,40]},
+ {n:17,s:[40,40,_,X,X,X,X,_,40,40]},
+ {n:18,s:[40,40,_,32,32,32,32,_,X,X]},
+ {n:19,s:[40,40,_,32,32,32,32,_,X,X]},
+ {n:20,s:[40,40,_,32,32,32,32,_,40,40]},
+ {n:21,s:[40,40,_,32,32,32,32,_,40,40]},
+ {n:22,s:[40,40,_,32,32,32,32,_,40,40]},
+ {n:23,s:[40,40,_,32,32,32,32,_,40,40]},
+ {n:24,s:[40,40,_,32,32,32,32,_,40,40]},
+ {n:25,s:[40,40,_,32,32,32,32,_,40,40]},
+ {n:26,s:[40,40,_,32,32,32,32,_,40,40]}]},
+
+{id:"MK851",route:"Mauritius → Johannesburg",code:"MK 0851",date:"Wed 14 Oct",times:"09:25 – 12:00",dur:"4h 35m",note:"Air Mauritius · 3-3-3",
+ cols:["A","B","C","|","D","E","F","|","G","H","J"],rows:[
+ {n:10,s:[X,X,X,_,X,X,X,_,X,X,X]},
+ {n:11,s:[X,X,X,_,X,X,X,_,X,X,X]},
+ {n:12,s:[40,40,40,_,40,40,40,_,40,40,40]},
+ {gap:"Cabin divider"},
+ {n:14,s:[40,40,40,_,40,40,40,_,40,40,40]},
+ {n:15,s:[40,40,40,_,40,40,40,_,40,40,40]},
+ {n:16,s:[32,32,32,_,32,32,32,_,32,32,32]},
+ {n:17,s:[32,32,32,_,32,32,32,_,32,32,32]},
+ {n:18,s:[32,32,32,_,32,32,32,_,32,32,32]},
+ {n:19,s:[32,32,32,_,32,32,32,_,32,32,32]},
+ {n:20,s:[32,32,32,_,32,32,32,_,32,32,32]},
+ {n:21,s:[32,32,32,_,32,32,32,_,32,32,32]},
+ {n:22,s:[32,32,32,_,32,32,32,_,32,32,32]},
+ {n:23,s:[32,32,32,_,32,32,32,_,32,32,32]},
+ {n:24,s:[32,32,32,_,32,32,32,_,32,32,32]},
+ {n:25,s:[32,32,32,_,32,32,32,_,32,32,32]},
+ {n:26,s:[32,32,32,_,32,32,32,_,32,32,32]}]},
+
+{id:"KQ763",route:"Johannesburg → Nairobi",code:"KQ 0763",date:"Wed 14 Oct",times:"17:00 – 22:05",dur:"4h 05m",note:"Kenya Airways · almost full",
+ cols:["A","B","C","|","G","H","J"],rows:[
+ {n:11,s:[X,X,X,_,X,X,X]},{n:12,s:[X,X,X,_,X,X,X]},
+ {gap:"Cabin divider"},
+ {n:14,s:[X,X,X,_,X,X,X]},{n:15,s:[X,X,X,_,X,X,X]},{n:16,s:[X,X,X,_,X,X,X]},
+ {n:17,s:[X,0,X,_,0,0,X]},
+ {n:18,s:[X,X,X,_,X,X,X]},{n:19,s:[X,X,X,_,X,X,X]},{n:20,s:[X,X,X,_,X,X,X]},
+ {n:21,s:[X,X,X,_,X,X,X]},{n:22,s:[X,X,X,_,X,X,X]},
+ {n:23,s:[X,0,X,_,X,0,X]},{n:24,s:[X,0,X,_,X,0,X]},{n:25,s:[X,0,X,_,X,0,X]},
+ {n:26,s:[X,0,X,_,X,0,X]},{n:27,s:[X,0,X,_,X,0,X]}]},
+
+{id:"QR1336",route:"Nairobi → Doha",code:"QR 1336",date:"Thu 15 Oct",times:"18:00 – 23:10",dur:"5h 10m",note:"3-3-3",
+ cols:["A","B","C","|","D","E","F","|","H","J","K"],rows:[
+ {n:16,s:[202,X,202,_,X,X,X,_,X,X,X]},
+ {n:17,s:[X,X,X,_,X,202,202,_,202,X,80]},
+ {n:18,s:[80,80,80,_,80,80,80,_,80,X,X]},
+ {n:19,s:[80,80,80,_,80,80,80,_,80,80,80]},
+ {n:20,s:[80,80,80,_,80,80,80,_,80,80,80]},
+ {n:21,s:[80,80,80,_,80,80,80,_,80,80,80]},
+ {n:22,s:[60,60,X,_,60,X,X,_,X,60,60]},
+ {n:23,s:[60,60,60,_,60,60,60,_,60,60,60]},
+ {n:24,s:[60,60,60,_,60,60,60,_,60,60,60]},
+ {n:25,s:[60,60,60,_,60,60,60,_,60,60,60]},
+ {n:26,s:[60,60,60,_,60,60,60,_,60,60,60]},
+ {n:27,s:[60,60,60,_,60,60,60,_,60,60,60]},
+ {n:28,s:[60,60,60,_,60,60,60,_,60,60,60]},
+ {n:29,s:[60,60,60,_,60,60,60,_,60,60,60]}]},
+
+{id:"QR719",route:"Doha → Seattle",code:"QR 0719",date:"Fri 16 Oct",times:"07:40 – 12:25",dur:"14h 45m",note:"Boeing 777 · 3-4-3",
+ cols:["A","B","C","|","D","E","F","G","|","H","J","K"],rows:[
+ {n:16,s:[X,X,X,_,_,_,_,_,_,X,X,X]},
+ {n:17,s:[X,99,99,_,X,X,268,X,_,X,99,X]},
+ {n:18,s:[X,99,99,_,99,99,99,X,_,99,99,X]},
+ {n:19,s:[X,99,99,_,268,99,99,X,_,99,99,99]},
+ {n:20,s:[X,99,99,_,99,99,99,99,_,99,99,99]},
+ {n:21,s:[X,99,99,_,X,99,99,99,_,99,99,99]},
+ {n:22,s:[99,X,X,_,99,99,99,99,_,X,99,99]},
+ {gap:"Lavatories / galley"},
+ {n:23,s:[X,X,268,_,X,X,268,X,_,X,X,X]},
+ {n:24,s:[77,77,77,_,77,X,X,X,_,X,77,X]},
+ {n:25,s:[77,77,77,_,268,77,77,X,_,77,77,77]},
+ {n:26,s:[77,77,X,_,77,77,77,77,_,77,77,77]},
+ {n:27,s:[77,77,77,_,77,77,77,77,_,77,77,77]},
+ {n:28,s:[77,77,77,_,77,77,77,77,_,77,77,77]},
+ {n:29,s:[77,77,77,_,77,77,77,77,_,77,77,77]}]}
+];
+
+let activePax="A", activeFlight=0, saveState="unknown";
+const picks={}; FLIGHTS.forEach(f=>picks[f.id]={A:null,B:null});
+const $=s=>document.querySelector(s);
+const money=n=>n===0?"No charge":"$"+n;
+
+function seatValue(f,seatId){
+  const m=/^(\d+)([A-Z])$/.exec(seatId||""); if(!m) return undefined;
+  const row=f.rows.find(r=>!r.gap && r.n===+m[1]); if(!row) return undefined;
+  const ci=f.cols.indexOf(m[2]); if(ci<0) return undefined;
+  return row.s[ci];
+}
+
+/* ---------- saving: artifact storage if available, memory otherwise ---------- */
+const hasStore = !!(window.storage && typeof window.storage.get==="function" && typeof window.storage.set==="function");
+const hasLocal = (function(){ try{ const k="__t"; window.localStorage.setItem(k,"1"); window.localStorage.removeItem(k); return true; }catch(e){ return false; } })();
+const canSave = hasStore || hasLocal;
+let saveTimer=null;
+
+function compact(){
+  const o={};
+  FLIGHTS.forEach(f=>{const p=picks[f.id]; if(p.A||p.B) o[f.id]={A:p.A||null,B:p.B||null};});
+  return o;
+}
+function applyCompact(o){
+  if(!o||typeof o!=="object") return;
+  Object.keys(o).forEach(id=>{
+    const f=FLIGHTS.find(x=>x.id===id); if(!f) return;
+    ["A","B"].forEach(who=>{
+      const sid=o[id][who]; if(!sid) return;
+      const v=seatValue(f,sid);
+      if(typeof v==="number"){picks[f.id][who]=sid;picks[f.id][who+"_p"]=v;}
+    });
+  });
+}
+async function loadSaved(){
+  if(!canSave){saveState="off";return;}
+  if(hasStore){
+    try{
+      const r=await window.storage.get(STORE_KEY,false);
+      if(r&&r.value) applyCompact(JSON.parse(r.value));
+      saveState="on"; return;
+    }catch(e){ /* no saved data yet, or unavailable — fall through */ }
+  }
+  if(hasLocal){
+    try{
+      const v=window.localStorage.getItem(STORE_KEY);
+      if(v) applyCompact(JSON.parse(v));
+      saveState="on";
+    }catch(e){ saveState="off"; }
+  }
+}
+function queueSave(){
+  if(!canSave) return;
+  clearTimeout(saveTimer);
+  saveTimer=setTimeout(async()=>{
+    const payload=JSON.stringify(compact());
+    let ok=false;
+    if(hasStore){ try{ await window.storage.set(STORE_KEY,payload,false); ok=true; }catch(e){} }
+    if(!ok && hasLocal){ try{ window.localStorage.setItem(STORE_KEY,payload); ok=true; }catch(e){} }
+    saveState=ok?"on":"off";
+    renderSaveNote();
+  },400);
+}
+function renderSaveNote(){
+  const el=$("#saveNote");
+  if(saveState==="on") el.textContent="Saved automatically";
+  else if(saveState==="off") el.textContent="Not saved — finish in one sitting";
+  else el.textContent="";
+}
+
+/* ---------- rendering ---------- */
+function renderPax(){
+  $("#paxStrip").innerHTML=PAX.map(p=>
+    `<button class="pax-btn ${activePax===p.id?"on":""}" data-pax="${p.id}"><span class="pax-dot"></span>${p.name}</button>`).join("");
+  $("#paxStrip").querySelectorAll("[data-pax]").forEach(b=>b.onclick=()=>{activePax=b.dataset.pax;renderPax();renderCabin();});
+}
+function flightState(f){const p=picks[f.id];return p.A&&p.B?"done":(p.A||p.B?"part":"");}
+function renderList(){
+  $("#flightList").innerHTML=FLIGHTS.map((f,i)=>
+    `<button class="fl ${i===activeFlight?"on":""}" data-i="${i}">
+      <span class="fl-idx">${String(i+1).padStart(2,"0")}</span>
+      <span><span class="fl-main">${f.route}</span><br><span class="fl-sub">${f.date} · ${f.code}</span></span>
+      <span class="fl-state ${flightState(f)}"></span></button>`).join("");
+  $("#flightList").querySelectorAll("[data-i]").forEach(b=>b.onclick=()=>{activeFlight=+b.dataset.i;renderCabin();scrollTop();});
+  $("#prevBtn").disabled=activeFlight===0;
+  $("#nextBtn").disabled=activeFlight===FLIGHTS.length-1;
+}
+function scrollTop(){try{window.scrollTo({top:0,behavior:"smooth"});}catch(e){window.scrollTo(0,0);}}
+
+function renderCabin(){
+  const f=FLIGHTS[activeFlight];
+  $("#mapTitle").textContent=f.route;
+  $("#mapMeta").textContent=`${f.code} · ${f.date} · ${f.times} · ${f.dur} · ${f.note}`;
+  let h='<div class="nose"></div><div class="colrow"><span class="rownum"></span>'+
+    f.cols.map(c=>c==="|"?'<span class="colhead gap"></span>':`<span class="colhead">${c}</span>`).join("")+
+    '<span class="rownum r"></span></div>';
+  f.rows.forEach(row=>{
+    if(row.gap){h+=`<div class="divider"><span>${row.gap}</span></div>`;return;}
+    h+=`<div class="seatrow"><span class="rownum">${row.n}</span>`;
+    f.cols.forEach((c,ci)=>{
+      if(c==="|"){h+='<span class="aisle"></span>';return;}
+      const v=row.s[ci], id=row.n+c;
+      const holder=picks[f.id].A===id?"A":(picks[f.id].B===id?"B":null);
+      if(holder) h+=`<button class="seat taken ${holder==="B"?"b":""}" data-seat="${id}" data-price="${v}">${holder}</button>`;
+      else if(v===null) h+='<span class="seat none"></span>';
+      else if(v==="x") h+=`<button class="seat gone" disabled>${c}</button>`;
+      else if(v===0) h+=`<button class="seat free" data-seat="${id}" data-price="0">${c}</button>`;
+      else h+=`<button class="seat paid" data-seat="${id}" data-price="${v}">$${v}</button>`;
+    });
+    h+=`<span class="rownum r">${row.n}</span></div>`;
+  });
+  $("#cabinInner").innerHTML=h;
+  $("#cabinInner").querySelectorAll("[data-seat]").forEach(b=>b.onclick=()=>choose(b.dataset.seat,+b.dataset.price));
+  renderPicked(); renderSummary(); renderList(); renderSaveNote();
+}
+function choose(seat,price){
+  const f=FLIGHTS[activeFlight], p=picks[f.id];
+  if(p[activePax]===seat){p[activePax]=null;p[activePax+"_p"]=null;}
+  else{
+    const other=activePax==="A"?"B":"A";
+    if(p[other]===seat){toast("The other traveller already has that seat.");return;}
+    p[activePax]=seat;p[activePax+"_p"]=price;
+    if(p.A&&p.B&&activeFlight<FLIGHTS.length-1) toast("Both seats set. Tap Next flight →");
+  }
+  queueSave(); renderCabin();
+}
+function renderPicked(){
+  const f=FLIGHTS[activeFlight],p=picks[f.id];
+  $("#picked").innerHTML=PAX.map(x=>{
+    const s=p[x.id];
+    return `<span class="chip">${x.name}: <b>${s||"—"}</b>${s?` · ${money(p[x.id+"_p"])} <button data-clear="${x.id}">clear</button>`:""}</span>`;
+  }).join("");
+  $("#picked").querySelectorAll("[data-clear]").forEach(b=>b.onclick=()=>{
+    const id=b.dataset.clear;picks[f.id][id]=null;picks[f.id][id+"_p"]=null;queueSave();renderCabin();});
+}
+function renderSummary(){
+  let ta=0,tb=0;
+  const rows=FLIGHTS.map(f=>{
+    const p=picks[f.id];
+    if(p.A)ta+=p.A_p||0; if(p.B)tb+=p.B_p||0;
+    return `<tr><td>${f.date}<br><span class="fl-sub">${f.code}</span></td><td>${f.route}</td>
+      <td class="seatcell ${p.A?"":"empty"}">${p.A||"—"}</td><td class="num ${p.A?"":"empty"}">${p.A?money(p.A_p):"—"}</td>
+      <td class="seatcell ${p.B?"":"empty"}">${p.B||"—"}</td><td class="num ${p.B?"":"empty"}">${p.B?money(p.B_p):"—"}</td></tr>`;
+  }).join("");
+  $("#summaryTable").innerHTML=
+   `<thead><tr><th>Date</th><th>Flight</th><th>Aaron</th><th class="num">Cost</th><th>Barbara</th><th class="num">Cost</th></tr></thead>
+    <tbody>${rows}
+    <tr class="total"><td colspan="3">Seat charges</td><td class="num">$${ta}</td><td></td><td class="num">$${tb}</td></tr>
+    <tr class="total"><td colspan="5">Total for both</td><td class="num">$${ta+tb}</td></tr></tbody>`;
+  if($("#outbox").classList.contains("on")) $("#outText").value=summaryText();
+}
+function summaryText(){
+  let out="SEAT CHOICES — Africa & Mauritius 2026\n\n",ta=0,tb=0;
+  FLIGHTS.forEach((f,i)=>{
+    const p=picks[f.id];
+    ta+=p.A?(p.A_p||0):0; tb+=p.B?(p.B_p||0):0;
+    out+=`${String(i+1).padStart(2,"0")}. ${f.date} ${f.code} ${f.route}\n   Aaron: ${p.A?p.A+" ("+money(p.A_p)+")":"not chosen"} | Barbara: ${p.B?p.B+" ("+money(p.B_p)+")":"not chosen"}\n`;
+  });
+  out+=`\nSeat charges — Aaron $${ta}, Barbara $${tb}, total $${ta+tb}\nSubject to confirmation with the airlines.`;
+  return out;
+}
+function toast(m){const t=$("#toast");t.textContent=m;t.classList.add("on");clearTimeout(t._t);t._t=setTimeout(()=>t.classList.remove("on"),2400);}
+
+$("#showBtn").onclick=()=>{
+  const box=$("#outbox");
+  box.classList.add("on");
+  $("#outText").value=summaryText();
+  $("#outText").scrollIntoView({block:"center"});
+  setTimeout(()=>{try{$("#outText").select();}catch(e){}},250);
+};
+$("#copyBtn").onclick=async()=>{
+  const el=$("#outText");
+  try{ await navigator.clipboard.writeText(el.value); toast("Copied. Paste it into a text or email to Tom."); return; }catch(e){}
+  try{ el.removeAttribute("readonly"); el.select(); el.setSelectionRange(0,el.value.length);
+       const ok=document.execCommand("copy"); el.setAttribute("readonly","");
+       toast(ok?"Copied.":"Select the text above, then Copy."); }
+  catch(e){ toast("Select the text above, then Copy."); }
+};
+$("#clearBtn").onclick=()=>{
+  FLIGHTS.forEach(f=>picks[f.id]={A:null,B:null});
+  queueSave(); renderCabin(); toast("Cleared.");
+};
+$("#prevBtn").onclick=()=>{if(activeFlight>0){activeFlight--;renderCabin();scrollTop();}};
+$("#nextBtn").onclick=()=>{if(activeFlight<FLIGHTS.length-1){activeFlight++;renderCabin();scrollTop();}};
+
+(async function init(){
+  renderPax(); renderCabin();
+  await loadSaved();
+  renderCabin(); renderSaveNote();
+})();
+</script>
+</body>
+</html>
